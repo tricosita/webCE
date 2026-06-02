@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Estudiantes · UNPilar</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   ROOT & RESET
+   ============================================ */
+:root {
+  --red: #FF3131;
+  --red-dark: #CC0000;
+  --yellow: #FFDE59;
+  --blue: #2B00FF;
+  --blue-light: #4A7CFF;
+  --black: #1A1A1A;
+  --dark: #252525;
+  --gray: #3E3E3E;
+  --gray-light: #6B6B6B;
+  --white: #FFFFFF;
+  --off-white: #F5F3F0;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--off-white);
+  color: var(--black);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.display-large {
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.display-medium {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--yellow);
+  border-radius: 2px;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  background: var(--yellow);
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(26, 26, 26, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-logo .logo-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--red);
+  border-radius: 50%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  font-family: var(--font-display);
+}
+
+.nav-links a:hover { color: var(--yellow); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  background: var(--black);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  overflow: hidden;
+}
+
+/* Collage background shapes */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, var(--red) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, var(--blue) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, var(--yellow) 0%, transparent 45%);
+  opacity: 0.3;
+}
+
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-shape {
+  position: absolute;
+  border-radius: 4px;
+  opacity: 0.15;
+}
+
+.hero-shape-1 {
+  top: 10%;
+  left: 5%;
+  width: 200px;
+  height: 200px;
+  background: var(--red);
+  transform: rotate(15deg);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-shape-2 {
+  top: 60%;
+  right: 8%;
+  width: 160px;
+  height: 160px;
+  background: var(--blue);
+  transform: rotate(-20deg);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.hero-shape-3 {
+  bottom: 15%;
+  left: 20%;
+  width: 120px;
+  height: 120px;
+  background: var(--yellow);
+  transform: rotate(45deg);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  animation: float 6s ease-in-out infinite 2s;
+}
+
+.hero-shape-4 {
+  top: 30%;
+  right: 30%;
+  width: 80px;
+  height: 80px;
+  background: var(--white);
+  transform: rotate(10deg);
+  border-radius: 20% 80% 50% 50% / 50% 40% 60% 50%;
+  opacity: 0.08;
+  animation: float 12s ease-in-out infinite 1s;
+}
+
+.hero-shape-5 {
+  bottom: 30%;
+  right: 40%;
+  width: 60px;
+  height: 60px;
+  background: var(--red);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  transform: rotate(25deg);
+  opacity: 0.2;
+  animation: float 7s ease-in-out infinite 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+  50% { transform: translateY(-20px) rotate(var(--rotation, 0deg)); }
+}
+
+.hero-shape-1 { --rotation: 15deg; }
+.hero-shape-2 { --rotation: -20deg; }
+.hero-shape-3 { --rotation: 45deg; }
+.hero-shape-4 { --rotation: 10deg; }
+.hero-shape-5 { --rotation: 25deg; }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+}
+
+.hero-content .tag {
+  background: rgba(255, 222, 89, 0.15);
+  color: var(--yellow);
+  border: 1px solid rgba(255, 222, 89, 0.3);
+}
+
+.hero h1 {
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.hero h1 .highlight-red { color: var(--red); }
+.hero h1 .highlight-yellow { color: var(--yellow); }
+
+.hero-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 1.5rem auto 2.5rem;
+  font-weight: 400;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 0 4px 20px rgba(255, 49, 49, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(255, 49, 49, 0.45);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--black);
+  box-shadow: 0 4px 20px rgba(255, 222, 89, 0.3);
+}
+
+.btn-yellow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(255, 222, 89, 0.4);
+}
+
+/* Hero stats bar */
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--yellow);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================
+   SECTION BASE
+   ============================================ */
+section {
+  padding: 5rem 2rem;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about-section {
+  background: var(--white);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--gray);
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.about-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.value-card {
+  background: var(--off-white);
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.2s;
+}
+
+.value-card:hover { transform: translateY(-2px); }
+
+.value-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.value-card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.value-card p {
+  font-size: 0.85rem;
+  color: var(--gray-light);
+}
+
+/* ============================================
+   STATUTE SECTION
+   ============================================ */
+.statute-section {
+  background: var(--black);
+  color: var(--white);
+  position: relative;
+}
+
+.statute-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue));
+}
+
+.statute-section .section-title::after {
+  background: var(--red);
+}
+
+.statute-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.statute-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--yellow);
+}
+
+.statute-info p {
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.statute-articles {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statute-articles li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  border-left: 3px solid var(--red);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.statute-articles li span {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--yellow);
+  font-size: 0.8rem;
+  min-width: 2rem;
+}
+
+/* ===== STATUTE CHAT / AGENT ===== */
+.chat-container {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.chat-header {
+  padding: 1rem 1.5rem;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.chat-header .chat-badge {
+  background: var(--red);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+}
+
+.msg {
+  max-width: 85%;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  animation: msgIn 0.3s ease;
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.msg-bot {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.9);
+  border-bottom-left-radius: 4px;
+}
+
+.msg-bot .msg-sources {
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  color: var(--yellow);
+  opacity: 0.7;
+}
+
+.msg-user {
+  align-self: flex-end;
+  background: var(--red);
+  color: var(--white);
+  border-bottom-right-radius: 4px;
+}
+
+.msg-thinking {
+  align-self: flex-start;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.thinking-dots {
+  display: flex;
+  gap: 3px;
+}
+
+.thinking-dots span {
+  width: 5px;
+  height: 5px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  animation: dotBounce 1.2s infinite;
+}
+
+.thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem 1rem;
+}
+
+.suggestion-chip {
+  padding: 0.4rem 0.85rem;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+
+.suggestion-chip:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.chat-input-row {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input-row input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input-row input:focus {
+  border-color: var(--red);
+}
+
+.chat-input-row input::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.chat-input-row button {
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: none;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.chat-input-row button:hover {
+  background: var(--red-dark);
+}
+
+/* ============================================
+   REPRESENTATIVES SECTION
+   ============================================ */
+.reps-section {
+  background: var(--white);
+}
+
+.reps-section .section-title::after {
+  background: var(--blue);
+}
+
+.reps-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.reps-filters {
+  background: var(--off-white);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(0,0,0,0.04);
+  position: sticky;
+  top: 90px;
+  align-self: start;
+}
+
+.reps-filters h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group {
+  margin-bottom: 1.25rem;
+}
+
+.filter-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-light);
+  margin-bottom: 0.5rem;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: auto;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  border-color: var(--blue);
+}
+
+.btn-search {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Results */
+.reps-results {
+  min-height: 300px;
+}
+
+.reps-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.reps-results-header h3 {
+  font-size: 1.1rem;
+}
+
+.reps-count {
+  background: var(--blue);
+  color: var(--white);
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+
+.reps-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--gray-light);
+}
+
+.reps-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.reps-empty h4 {
+  color: var(--gray);
+  margin-bottom: 0.5rem;
+}
+
+.reps-empty p {
+  font-size: 0.9rem;
+}
+
+.rep-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--off-white);
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.04);
+  margin-bottom: 0.75rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rep-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.rep-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.rep-info {
+  flex: 1;
+}
+
+.rep-info h4 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.rep-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rep-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--gray-light);
+  background: rgba(0,0,0,0.03);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}
+
+.rep-meta-item strong {
+  color: var(--gray);
+  font-weight: 600;
+}
+
+/* ============================================
+   COVERAGE SECTION
+   ============================================ */
+.coverage-section {
+  background: var(--black);
+  color: var(--white);
+}
+
+.coverage-section .section-title::after {
+  background: var(--yellow);
+}
+
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.coverage-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.coverage-card:hover {
+  transform: translateY(-2px);
+}
+
+.coverage-card h4 {
+  font-size: 0.95rem;
+  color: var(--yellow);
+  margin-bottom: 0.5rem;
+}
+
+.coverage-bar-wrapper {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.coverage-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--yellow);
+  transition: width 0.8s ease;
+}
+
+.coverage-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.coverage-stat strong {
+  color: var(--white);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.85rem;
+}
+
+footer strong {
+  color: rgba(255,255,255,0.8);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .statute-grid { grid-template-columns: 1fr; }
+  .reps-layout { grid-template-columns: 1fr; }
+  .reps-filters { position: static; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 0.75rem 1rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.8rem; }
+  section { padding: 3rem 1.25rem; }
+  .about-values { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .chat-container { height: 420px; }
+  .rep-card { flex-direction: column; gap: 0.75rem; }
+}
+
+/* Small utility */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="logo-dot"></span>
+    Centro UNPilar
+  </a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#estatuto">Estatuto</a></li>
+    <li><a href="#representantes">Representantes</a></li>
+    <li><a href="#cobertura">Cobertura</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero" id="inicio">
+  <div class="hero-shapes">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-shape hero-shape-4"></div>
+    <div class="hero-shape hero-shape-5"></div>
+  </div>
+  <div class="hero-content">
+    <p style="font-family:var(--font-display);font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:0.5rem;">lo pedis <strong style="color:var(--yellow)">LO TENÉS</strong></p>
+    <span class="tag">⚡ Fundacional · Mayo 2026</span>
+    <h1 class="display-large">
+      Centro de<br>
+      <span class="highlight-red">Estudiantes</span><br>
+      <span class="highlight-yellow">UNPilar</span>
+    </h1>
+    <p class="hero-sub">
+      Organización gremial, autónoma y democrática de todas las estudiantes
+      de la Universidad Nacional de Pilar.
+    </p>
+    <div class="hero-actions">
+      <a href="#estatuto" class="btn btn-primary">📖 Consultar Estatuto</a>
+      <a href="#representantes" class="btn btn-secondary">🔍 Buscar Representantes</a>
+      <a href="https://censo-centro-estudiantes.vercel.app" target="_blank" rel="noopener" class="btn btn-yellow">📋 Censo Estudiantil</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Carreras</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">85</div>
+        <div class="stat-label">Comisiones</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">21</div>
+        <div class="stat-label">Representantes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT
+     ============================================ -->
+<section class="about-section" id="acerca">
+  <div class="section-inner">
+    <span class="tag">✧ Sobre el Centro</span>
+    <h2 class="section-title display-medium">Nuestra Misión</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          El <strong>Centro de Estudiantes de la Universidad Nacional de Pilar</strong> nace
+          como un espacio autónomo, democrático y representativo del claustro estudiantil,
+          constituido en Asamblea General durante el proceso fundacional de la universidad.
+        </p>
+        <p>
+          Somos una organización gremial, sin fines de lucro, independiente de las autoridades
+          universitarias y de partidos políticos. Nuestro compromiso es la defensa de los
+          derechos estudiantiles, el fortalecimiento institucional y la construcción de una
+          comunidad universitaria participativa, crítica y solidaria.
+        </p>
+        <p>
+          Creemos en la educación pública, gratuita y de calidad como pilar fundamental
+          para el desarrollo de nuestra sociedad.
+        </p>
+      </div>
+      <div class="about-values">
+        <div class="value-card">
+          <div class="value-icon">🗳️</div>
+          <h4>Democracia Participativa</h4>
+          <p>Decisiones colectivas con participación activa de todes</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🔍</div>
+          <h4>Transparencia</h4>
+          <p>Rendición pública de cuentas y acceso a la información</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🌈</div>
+          <h4>Diversidad & Equidad</h4>
+          <p>Inclusión real de todas las identidades y capacidades</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h4>Solidaridad</h4>
+          <p>Compromiso con la comunidad y sectores vulnerables</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     STATUTE SECTION with CHAT
+     ============================================ -->
+<section class="statute-section" id="estatuto">
+  <div class="section-inner">
+    <span class="tag" style="background:rgba(255,49,49,0.15);color:var(--red);border-color:rgba(255,49,49,0.3);">📜 Estatuto Provisorio</span>
+    <h2 class="section-title display-medium">Consultá el Estatuto</h2>
+    <p style="color:rgba(255,255,255,0.6);margin-top:0.5rem;margin-bottom:2rem;font-size:1.05rem;">
+      Hacé preguntas sobre el estatuto del Centro de Estudiantes. El agente investiga
+      los artículos y te responde al instante.
+    </p>
+
+    <div class="statute-grid">
+      <!-- Info panel -->
+      <div class="statute-info">
+        <h3>Estructura del Estatuto</h3>
+        <p>
+          El Estatuto Provisorio (Versión 01 · Mayo 2026) establece las bases
+          de la organización estudiantil. Está dividido en 9 títulos que abarcan
+          desde la naturaleza del Centro hasta el régimen disciplinario y electoral.
+        </p>
+        <ul class="statute-articles">
+          <li><span>I</span> Naturaleza, Fines y Principios</li>
+          <li><span>II</span> Membresía</li>
+          <li><span>III</span> Órganos de Gobierno</li>
+          <li><span>IV</span> Régimen Electoral</li>
+          <li><span>V</span> Régimen Económico</li>
+          <li><span>VI</span> Paridad, Inclusión y Protección</li>
+          <li><span>VII</span> Espacios Informativos</li>
+          <li><span>VIII</span> Régimen Disciplinario</li>
+          <li><span>IX</span> Reforma y Disposiciones Finales</li>
+        </ul>
+      </div>
+
+      <!-- Chat -->
+      <div class="chat-container" id="statuteChat">
+        <div class="chat-header">
+          <span>🤖</span>
+          Agente del Estatuto
+          <span class="chat-badge">Investigación</span>
+        </div>
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Mensajes del agente del estatuto">
+          <div class="msg msg-bot">
+            ¡Hola! Soy el agente de investigación del Estatuto. 
+            Preguntame cualquier cosa sobre los artículos, derechos, 
+            obligaciones o estructura del Centro de Estudiantes.
+            <div class="msg-sources">Fuente: Estatuto Provisorio UNPilar 2026</div>
+          </div>
+        </div>
+        <div class="suggestion-chips" id="suggestionChips">
+          <span class="suggestion-chip" onclick="askStatute('¿Cuáles son los requisitos para ser candidato?')">📋 Requisitos para candidatos</span>
+          <span class="suggestion-chip" onclick="askStatute('¿Cómo funciona la Asamblea General?')">🏛️ Asamblea General</span>
+          <span class="suggestion-chip" onclick="askStatute('¿Cuáles son los derechos de los miembros?')">⚖️ Derechos de miembros</span>
+          <span class="suggestion-chip" onclick="askStatute('¿Cómo se eligen las autoridades?')">🗳️ Elección de autoridades</span>
+          <span class="suggestion-chip" onclick="askStatute('¿Qué principios rigen al Centro?')">⭐ Principios rectores</span>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="Ej: ¿Qué dice el artículo sobre la Comisión Directiva?" onkeydown="if(event.key==='Enter') sendChat()">
+          <button onclick="sendChat()">Consultar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     REPRESENTATIVES SECTION
+     ============================================ -->
+<section class="reps-section" id="representantes">
+  <div class="section-inner">
+    <span class="tag" style="background:rgba(43,0,255,0.08);color:var(--blue);border:1px solid rgba(43,0,255,0.15);">🗓️ Voceros Mayo 2026</span>
+    <h2 class="section-title display-medium">Buscador de Representantes</h2>
+    <p style="color:var(--gray);margin-top:0.5rem;margin-bottom:0;font-size:1.05rem;">
+      Seleccioná el día, la sede y el horario para saber qué representantes
+      están disponibles en esa comisión.
+    </p>
+
+    <div class="reps-layout">
+      <!-- Filters -->
+      <div class="reps-filters">
+        <h3>🔍 Filtros de búsqueda</h3>
+
+        <div class="filter-group">
+          <label>Día</label>
+          <select id="filterDay">
+            <option value="">Seleccioná un día</option>
+            <option value="lunes">Lunes</option>
+            <option value="martes">Martes</option>
+            <option value="miercoles">Miércoles</option>
+            <option value="jueves">Jueves</option>
+            <option value="viernes">Viernes</option>
+            <option value="sabado">Sábado</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Sede</label>
+          <select id="filterSede">
+            <option value="">Seleccioná una sede</option>
+            <option value="pellegrini">Pellegrini</option>
+            <option value="parque">Parque Industrial</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Turno</label>
+          <select id="filterTime">
+            <option value="">Seleccioná un turno</option>
+            <option value="manana">🌤️ Mañana (8:00 - 13:00)</option>
+            <option value="tarde">☀️ Tarde (14:00 - 18:00)</option>
+            <option value="noche">🌙 Noche (18:00 - 22:00)</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary btn-search" onclick="searchRepresentatives()">
+          🔎 Buscar representantes
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div class="reps-results" id="repsResults">
+        <div class="reps-results-header">
+          <h3>Resultados</h3>
+          <span class="reps-count" id="repsCount">0</span>
+        </div>
+        <div id="repsList">
+          <div class="reps-empty" id="repsEmptyState">
+            <div class="reps-empty-icon">🔍</div>
+            <h4>Buscá representantes</h4>
+            <p>Usá los filtros de la izquierda para encontrar representantes disponibles por sede y horario.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     COVERAGE SECTION
+     ============================================ -->
+<section class="coverage-section" id="cobertura">
+  <div class="section-inner">
+    <span class="tag" style="background:rgba(255,222,89,0.12);color:var(--yellow);border:1px solid rgba(255,222,89,0.2);">📊 Cobertura</span>
+    <h2 class="section-title display-medium">Cobertura por Carrera</h2>
+    <p style="color:rgba(255,255,255,0.6);margin-top:0.5rem;margin-bottom:0;font-size:1.05rem;">
+      Porcentaje de comisiones con representación asignada en cada carrera.
+    </p>
+    <div class="coverage-grid" id="coverageGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <p>
+    <strong>Centro de Estudiantes · Universidad Nacional de Pilar</strong><br>
+    Estatuto Provisorio Versión 01 · Mayo 2026<br>
+    Datos de Voceros correspondientes a Mayo 2026
+  </p>
+  <p style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="https://censo-centro-estudiantes.vercel.app" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:none;font-weight:600;">📋 Censo Estudiantil</a>
+    <span style="opacity:0.3">|</span>
+    <a href="https://chat.whatsapp.com" target="_blank" rel="noopener" style="color:#25D366;text-decoration:none;font-weight:600;">💬 Comunidad WhatsApp</a>
+  </p>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// =============================================
+// STATUTE DATA
+// =============================================
+const statuteData = [
+  { articles: "1", title: "Constitución y Denominación", content: "El Centro de Estudiantes de la Universidad Nacional de Pilar (El Centro) es la organización gremial, autónoma, democrática, plural y sin fines de lucro que nuclea y representa a la totalidad de las y los estudiantes regulares de la Universidad. Es la entidad legítima de organización colectiva, deliberación democrática y defensa de los intereses del estudiantado.", section: "Título I - Naturaleza, Fines y Principios" },
+  { articles: "2", title: "Autonomía", content: "El Centro ejerce su actuación con independencia orgánica, funcional y política respecto de las autoridades universitarias y los partidos políticos y organizaciones externas a la Universidad. Esta autonomía no impide la articulación institucional con los órganos de gobierno universitario cuando sea necesaria para la defensa de derechos estudiantiles.", section: "Título I - Naturaleza, Fines y Principios" },
+  { articles: "3", title: "Ámbito de Representación", content: "El Centro representa a la totalidad de estudiantes regulares de todas las carreras de la Universidad, cualquiera sea su modalidad de cursada o sede donde estudien. Comprende la defensa de derechos académicos, administrativos y sociales, la participación en cogobierno universitario y la intervención en cuestiones institucionales que afecten al claustro estudiantil.", section: "Título I - Naturaleza, Fines y Principios" },
+  { articles: "4", title: "Principios Rectores", content: "Los principios que orientan el accionar del Centro son: Democracia participativa y deliberativa, Autonomía e independencia, Transparencia y rendición pública de cuentas, Igualdad de oportunidades y no discriminación, Respeto por la diversidad y promoción de la equidad, Solidaridad y compromiso con la comunidad, y Defensa de la educación pública, gratuita y de calidad.", section: "Título I - Naturaleza, Fines y Principios" },
+  { articles: "5", title: "Fines Específicos", content: "Son fines del Centro: promover la participación activa del estudiantado en la vida académica, cultural, social y política; ejercer la representación del claustro; defender los derechos académicos y sociales; impulsar iniciativas culturales, deportivas y recreativas; desarrollar dispositivos de acompañamiento entre pares; participar en procesos de mejora institucional; y promover acciones solidarias y de extensión universitaria.", section: "Título I - Naturaleza, Fines y Principios" },
+  { articles: "6", title: "Condición de Miembro Activo", content: "Son miembros activos del Centro todas las personas que revisten la condición de estudiantes regulares de la Universidad Nacional de Pilar. La condición de miembro activo requiere anotarse y haber participado de por lo menos una reunión o actividad. La pérdida de regularidad implica automáticamente la pérdida de la condición de miembro activo.", section: "Título II - Membresía" },
+  { articles: "7", title: "Derechos de los Miembros", content: "Los miembros activos tienen derecho a: participar con voz y voto en Asambleas Generales; elegir y ser elegidos para cargos (siempre que hubieran completado el 80% del primer año de cursada); presentar proyectos y propuestas; acceder a información institucional, administrativa y económica del Centro; integrar comisiones de trabajo; y solicitar la convocatoria a Asamblea General.", section: "Título II - Membresía" },
+  { articles: "8", title: "Deberes de los Miembros", content: "Son deberes de los miembros activos: cumplir y respetar el Estatuto y las resoluciones adoptadas; contribuir al sostenimiento institucional mediante participación responsable; mantener un comportamiento acorde a los principios de convivencia, respeto y pluralidad; y abstenerse de realizar actos que perjudiquen el funcionamiento o la legitimidad del Centro.", section: "Título II - Membresía" },
+  { articles: "9", title: "Estructura Orgánica", content: "El Centro ejerce sus funciones a través de cuatro órganos: la Asamblea General (soberana), la Comisión Directiva (ejecutiva), la Comisión Revisora de Cuentas (control interno) y la Junta Electoral (independiente para procesos electorales). Cada órgano actúa dentro de sus competencias, respetando la división funcional y el control recíproco.", section: "Título III - Órganos de Gobierno" },
+  { articles: "10", title: "Naturaleza y Soberanía de la Asamblea General", content: "La Asamblea General es el órgano máximo de deliberación y decisión del Centro, integrada por la totalidad de los miembros activos. Es la instancia soberana en materia institucional, normativa y política. Sus decisiones son obligatorias para todos los órganos y miembros.", section: "Título III - Capítulo I - Asamblea General" },
+  { articles: "11", title: "Competencias Exclusivas de la Asamblea", content: "Son atribuciones indelegables de la Asamblea: aprobar o rechazar informes de gestión y balances; reformar el Estatuto; resolver cuestiones de especial trascendencia; disponer la remoción de autoridades por causa grave; interpretar el Estatuto en caso de duda; y fijar lineamientos generales de acción institucional.", section: "Título III - Capítulo I - Asamblea General" },
+  { articles: "12", title: "Convocatoria a Asamblea", content: "La Asamblea será convocada por la Comisión Directiva o por solicitud de no menos de 40 personas. La convocatoria se realizará con mínimo 10 días de anticipación indicando fecha, hora, sede(s) y orden del día. Solo se tratarán asuntos incluidos en el orden del día, salvo que la Asamblea declare su urgencia por mayoría simple.", section: "Título III - Capítulo I - Asamblea General" },
+  { articles: "13", title: "Quórum y Votación en Asamblea", content: "La Asamblea sesiona válidamente con presencia de al menos 40 personas. Las decisiones se adoptan por mayoría simple de votos válidos emitidos. Las votaciones serán por mano alzada, salvo que se resuelva votación secreta. De cada Asamblea se labrará acta.", section: "Título III - Capítulo I - Asamblea General" },
+  { articles: "14", title: "Frecuencia de Asambleas", content: "La Asamblea Ordinaria se celebrará al menos una vez por año para considerar el informe de gestión y balance económico. Asambleas Extraordinarias se convocarán según necesidad.", section: "Título III - Capítulo I - Asamblea General" },
+  { articles: "15", title: "Comisión Directiva", content: "La Comisión Directiva es el órgano ejecutivo, administrativo y de conducción política del Centro. Implementa las decisiones de la Asamblea, ejerce la representación institucional y gestiona las actividades ordinarias.", section: "Título III - Capítulo II - Comisión Directiva" },
+  { articles: "16", title: "Integración de la Comisión Directiva", content: "La Comisión Directiva se compone de: Presidencia, Secretaría General, Secretaría de Finanzas y tres (3) Secretarías de Extensión. Puede ampliar su estructura mediante Reglamento Interno aprobado por Asamblea. Actúa como cuerpo colegiado y las decisiones se adoptan por mayoría simple.", section: "Título III - Capítulo II - Comisión Directiva" },
+  { articles: "17", title: "Duración del Mandato", content: "Los miembros de la Comisión Directiva duran 2 años en funciones, pudiendo ser reelectos hasta una vez más. El mandato comienza con la proclamación oficial por la Junta Electoral. En caso de acefalía total o vacancia de más de la mitad de los cargos, deben convocarse elecciones extraordinarias.", section: "Título III - Capítulo II - Comisión Directiva" },
+  { articles: "18", title: "Funciones de la Comisión Directiva", content: "Son competencias de la Comisión Directiva: representar al Centro, ejecutar resoluciones de la Asamblea, administrar recursos, convocar a Asamblea, crear comisiones de trabajo, elaborar informe anual de gestión y balance económico, y dictar reglamentos internos que no contradigan el Estatuto.", section: "Título III - Capítulo II - Comisión Directiva" },
+  { articles: "24", title: "Comisión Revisora de Cuentas", content: "Es el órgano de control interno encargado de fiscalizar la administración económica, financiera y patrimonial ejercida por la Comisión Directiva. Garantiza transparencia, legalidad y correcta utilización de recursos. Ejerce sus funciones con independencia técnica y funcional.", section: "Título III - Capítulo III - Comisión Revisora de Cuentas" },
+  { articles: "25", title: "Integración de la Comisión Revisora de Cuentas", content: "Está integrada por tres (3) miembros titulares y un (1) miembro suplente. Son elegidos en el mismo acto electoral que la Comisión Directiva. No pueden integrar simultáneamente la Comisión Directiva ni ocupar otros cargos ejecutivos del Centro.", section: "Título III - Capítulo III - Comisión Revisora de Cuentas" },
+  { articles: "28", title: "Junta Electoral", content: "Es el órgano independiente encargado de organizar, supervisar y garantizar la legalidad, transparencia e imparcialidad de los procesos electorales del Centro. Sus decisiones son obligatorias para todas las listas y órganos.", section: "Título III - Capítulo IV - Junta Electoral" },
+  { articles: "29", title: "Integración de la Junta Electoral", content: "Está integrada por tres (3) estudiantes regulares que sean miembros activos, no integren ninguna lista del proceso electoral, ni desempeñen cargos en la Comisión Directiva o Comisión Revisora de Cuentas. Son designados por la Asamblea General con mínimo 60 días de anticipación al acto eleccionario.", section: "Título III - Capítulo IV - Junta Electoral" },
+  { articles: "34", title: "Voto Democrático", content: "Las autoridades del Centro serán elegidas mediante voto directo, secreto, personal e igual de los miembros activos. El proceso electoral garantiza la libre expresión de la voluntad del estudiantado y el respeto a los principios democráticos.", section: "Título IV - Régimen Electoral" },
+  { articles: "35-36", title: "Derecho al Voto y a ser Candidato", content: "Pueden votar todas las personas que sean estudiantes regulares al momento de la oficialización del padrón. Para ser candidato se requiere: ser miembro activo, tener 18 años cumplidos y acreditar mínimo aprobado del 80% del primer año de la carrera.", section: "Título IV - Régimen Electoral" },
+  { articles: "37", title: "Sistema Electoral", content: "La elección se realiza mediante sistema de lista completa. La lista con mayor cantidad de votos válidos ocupa la totalidad de los cargos de Comisión Directiva y Comisión Revisora de Cuentas. En caso de empate, se convoca a segunda vuelta dentro de 15 días.", section: "Título IV - Régimen Electoral" },
+  { articles: "39", title: "Campaña Electoral", content: "La campaña se desarrolla en marco de respeto institucional y pluralismo. Quedan prohibidos: el uso indebido de recursos del Centro, la utilización de bienes universitarios sin autorización, y actos discriminatorios, violentos o difamatorios.", section: "Título IV - Régimen Electoral" },
+  { articles: "43", title: "Régimen Económico", content: "La administración económica se rige por principios de legalidad, transparencia, responsabilidad y rendición periódica de cuentas. Todos los recursos se destinan exclusivamente a los fines del Estatuto. Queda prohibida la distribución de excedentes entre miembros o autoridades.", section: "Título V - Régimen Económico y Financiero" },
+  { articles: "44", title: "Patrimonio del Centro", content: "Constituyen patrimonio del Centro: aportes voluntarios de estudiantes, donaciones, fondos de actividades organizadas, subsidios o aportes institucionales, recursos de convenios, y bienes muebles adquiridos. Todos los bienes serán registrados e inventariados.", section: "Título V - Régimen Económico y Financiero" },
+  { articles: "47", title: "Rendición de Cuentas", content: "Anualmente la Comisión Directiva presentará ante la Asamblea General un informe económico detallado y el balance anual. La Asamblea aprobará o rechazará el balance mediante votación expresa.", section: "Título V - Régimen Económico y Financiero" },
+  { articles: "49-51", title: "Paridad, Inclusión y Protección", content: "El Centro reconoce la igualdad y no discriminación como eje rector. Promueve la participación activa de personas con discapacidad, estudiantes de distintas carreras y sectores subrepresentados. Queda prohibido cualquier acto de discriminación, violencia o acoso.", section: "Título VI - Paridad, Inclusión y Protección" },
+  { articles: "52-53", title: "Espacios Informativos", content: "El Centro mantiene espacios informativos híbridos: modalidad digital (repositorio centralizado con actas, balances, resoluciones) y modalidad física (tablón informativo en cada sede). La información debe ser completa, oportuna e inclusiva.", section: "Título VII - Espacios Informativos" },
+  { articles: "55-56", title: "Régimen Disciplinario", content: "El régimen disciplinario se rige por legalidad, proporcionalidad, derecho de defensa y debido proceso. Constituyen faltas: incumplimiento grave de obligaciones, uso indebido de recursos, obstaculización del funcionamiento, actos de violencia o discriminación, y falsificación de información.", section: "Título VIII - Régimen Disciplinario" },
+  { articles: "57", title: "Sanciones Disciplinarias", content: "Las sanciones pueden consistir en: apercibimiento escrito, suspensión temporal, remoción del cargo, o inhabilitación para postularse por período determinado. Las sanciones serán proporcionales a la gravedad de la falta.", section: "Título VIII - Régimen Disciplinario" },
+  { articles: "60", title: "Remoción de Autoridades", content: "La remoción de miembros de la Comisión Directiva requiere resolución fundada y mayoría de la Asamblea General convocada al efecto con un mínimo de 80 personas. La persona involucrada será citada y tendrá derecho a exponer su defensa.", section: "Título VIII - Régimen Disciplinario" },
+  { articles: "61-62", title: "Reforma del Estatuto", content: "El Estatuto puede ser reformado por Asamblea convocada especialmente, con mínimo 15 días de anticipación. Se requiere voto favorable de dos tercios (2/3) de los presentes.", section: "Título IX - Reforma y Disposiciones Finales" },
+  { articles: "63", title: "Revisión Integral", content: "Cada cuatro (4) años la Comisión Directiva convocará a Asamblea especial para evaluar el funcionamiento general del Estatuto e impulsar reformas sustantivas. Esta revisión estará abierta a aportes de miembros activos.", section: "Título IX - Reforma y Disposiciones Finales" },
+  { articles: "64", title: "Interpretación del Estatuto", content: "La interpretación de este Estatuto corresponde a la Asamblea General. En caso de dudas sobre su aplicación, prevalecerán los principios democráticos y el respeto a los fines institucionales del Centro.", section: "Título IX - Reforma y Disposiciones Finales" }
+];
+
+// =============================================
+// STATUTE Q&A AGENT
+// =============================================
+function findBestMatch(query) {
+  const q = query.toLowerCase();
+  const keywords = q.split(/\s+/).filter(w => w.length >= 3);
+  
+  let scored = statuteData.map(art => {
+    let score = 0;
+    const searchText = (art.title + ' ' + art.content + ' ' + art.section + ' Art. ' + art.articles).toLowerCase();
+    
+    // Direct article number match
+    const articleMatch = q.match(/(?:art[íi]culo|art\.?)\s*(\d+)/i);
+    if (articleMatch) {
+      const num = articleMatch[1];
+      if (art.articles.includes(num)) score += 200;
+    }
+    
+    // Title match
+    keywords.forEach(kw => {
+      if (art.title.toLowerCase().includes(kw)) score += 50;
+      if (art.section.toLowerCase().includes(kw)) score += 30;
+    });
+    
+    // Content relevance
+    keywords.forEach(kw => {
+      const regex = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      const matches = (art.content.match(regex) || []).length;
+      score += matches * 20;
+    });
+    
+    // Keyword weight adjustments for common topics
+    const topicMap = {
+      'vot': ['voto', 'votar', 'votación', 'electoral', 'elecciones'],
+      'candidat': ['candidato', 'candidatura', 'lista', 'elegido'],
+      'asamble': ['asamblea', 'deliberación', 'soberano'],
+      'president': ['presidencia', 'presidente'],
+      'finanzas': ['finanzas', 'económico', 'balance', 'presupuesto', 'recursos'],
+      'sancion': ['sanción', 'sanciones', 'disciplina', 'falta', 'apercibimiento'],
+      'derecho': ['derecho', 'derechos', 'miembro'],
+      'reforma': ['reforma', 'modificación', 'cambio']
+    };
+    
+    for (const [topic, words] of Object.entries(topicMap)) {
+      if (keywords.some(kw => kw.includes(topic) || topic.includes(kw))) {
+        words.forEach(w => {
+          if (searchText.includes(w)) score += 15;
+        });
+      }
+    }
+    
+    return { article: art, score };
+  });
+  
+  scored.sort((a, b) => b.score - a.score);
+  const top = scored.filter(s => s.score > 0);
+  
+  if (top.length === 0) {
+    // Fallback: return most general articles
+    return scored.slice(0, 3).map(s => s.article);
+  }
+  
+  return top.slice(0, 3).map(s => s.article);
+}
+
+function sendChat() {
+  const input = document.getElementById('chatInput');
+  const query = input.value.trim();
+  if (!query) return;
+  input.value = '';
+  askStatute(query);
+}
+
+function askStatute(query) {
+  const messages = document.getElementById('chatMessages');
+  
+  // Add user message
+  const userMsg = document.createElement('div');
+  userMsg.className = 'msg msg-user';
+  userMsg.textContent = query;
+  messages.appendChild(userMsg);
+  
+  // Add thinking indicator
+  const thinking = document.createElement('div');
+  thinking.className = 'msg-thinking';
+  thinking.innerHTML = '<span>Analizando estatuto</span><div class="thinking-dots"><span></span><span></span><span></span></div>';
+  messages.appendChild(thinking);
+  messages.scrollTop = messages.scrollHeight;
+  
+  // Simulate research delay
+  setTimeout(() => {
+    // Remove thinking
+    thinking.remove();
+    
+    const results = findBestMatch(query);
+    
+    if (results.length === 0 || results[0].score === 0) {
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg msg-bot';
+      botMsg.innerHTML = `
+        No encontré una respuesta específica para tu consulta en el Estatuto.
+        Podés intentar con otras palabras clave, o preguntar sobre:
+        <br><br>
+        • Requisitos para ser candidato<br>
+        • Cómo funciona la Asamblea<br>
+        • Derechos de los miembros<br>
+        • Comisión Directiva<br>
+        • Elecciones
+      `;
+      messages.appendChild(botMsg);
+    } else {
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg msg-bot';
+      
+      let html = '';
+      results.forEach((art, i) => {
+        html += `
+          <div style="margin-bottom: ${i < results.length - 1 ? '1rem' : '0'}; 
+                      ${i < results.length - 1 ? 'padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06)' : ''}">
+            <strong style="color: var(--yellow);">Art. ${art.articles} — ${art.title}</strong>
+            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4); margin: 0.2rem 0 0.4rem;">
+              ${art.section}
+            </div>
+            <div>${art.content}</div>
+          </div>`;
+      });
+      
+      botMsg.innerHTML = html + `
+        <div class="msg-sources">
+          Fuente: Estatuto Provisorio Centro de Estudiantes UNPilar 2026 · Art. ${results.map(r => r.articles).join(', ')}
+        </div>`;
+      
+      messages.appendChild(botMsg);
+    }
+    
+    messages.scrollTop = messages.scrollHeight;
+  }, 600 + Math.random() * 400);
+}
+
+// =============================================
+// REPRESENTATIVES DATA
+// =============================================
+const representatives = [
+  // ========== LUNES ==========
+  { day: "lunes", sede: "pellegrini", time: "8:30", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "lunes", sede: "pellegrini", time: "9:30", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "lunes", sede: "pellegrini", time: "10:35", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "lunes", sede: "pellegrini", time: "8:30", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "lunes", sede: "pellegrini", time: "8:30", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "lunes", sede: "pellegrini", time: "8:30", name: "Morella Carolina Rossi Lafuente", course: "COM04", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "8:30", name: "Brenda Ansonaud", course: "PSI08", role: "Promoción Comunitaria" },
+  { day: "lunes", sede: "pellegrini", time: "14:00", name: "Liliana Galeano", course: "COM08", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "15:00", name: "Liliana Galeano", course: "COM08", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "16:05", name: "Liliana Galeano", course: "COM08", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "17:00", name: "Liliana Galeano", course: "COM08", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "15:00", name: "Juan Manuel Rojad", course: "GD02", role: "Gestión Deportiva" },
+  { day: "lunes", sede: "pellegrini", time: "16:05", name: "Juan Manuel Rojad", course: "GD02", role: "Gestión Deportiva" },
+  { day: "lunes", sede: "pellegrini", time: "17:00", name: "Juan Manuel Rojad", course: "GD02", role: "Gestión Deportiva" },
+  { day: "lunes", sede: "pellegrini", time: "18:00", name: "Juan Manuel Rojad", course: "GD02", role: "Gestión Deportiva" },
+  { day: "lunes", sede: "pellegrini", time: "14:00", name: "Solange Moreno Píriz", course: "PromSoc0102", role: "Promoción Sociocultural" },
+  { day: "lunes", sede: "pellegrini", time: "14:00", name: "Segundo Cuneo", course: "PromSoc0102", role: "Promoción Sociocultural" },
+  { day: "lunes", sede: "pellegrini", time: "14:00", name: "Maitena Valdez", course: "PromSoc0102", role: "Promoción Sociocultural" },
+  { day: "lunes", sede: "pellegrini", time: "17:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "18:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "20:05", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+  { day: "lunes", sede: "pellegrini", time: "20:05", name: "Luis Otero", course: "PSI14", role: "Promoción Comunitaria" },
+  { day: "lunes", sede: "pellegrini", time: "20:05", name: "Ximena Ochoa Molina", course: "RA06", role: "Realización Audiovisual" },
+  { day: "lunes", sede: "pellegrini", time: "20:05", name: "Victoria Zelonka Brauer", course: "RA06", role: "Realización Audiovisual" },
+
+  // ========== MARTES ==========
+  { day: "martes", sede: "pellegrini", time: "8:30", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "8:30", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "8:30", name: "Morella Carolina Rossi Lafuente", course: "COM04", role: "Comunicación Digital" },
+  { day: "martes", sede: "pellegrini", time: "8:30", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "martes", sede: "pellegrini", time: "9:30", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "martes", sede: "pellegrini", time: "10:35", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "martes", sede: "pellegrini", time: "10:35", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "10:35", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "15:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+
+  // ========== MIÉRCOLES ==========
+  { day: "miercoles", sede: "pellegrini", time: "8:30", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "miercoles", sede: "pellegrini", time: "8:30", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "miercoles", sede: "pellegrini", time: "8:30", name: "Lorena Mora Benítez", course: "ENF04", role: "Enfermería" },
+  { day: "miercoles", sede: "pellegrini", time: "8:30", name: "Morella Carolina Rossi Lafuente", course: "COM04", role: "Comunicación Digital" },
+  { day: "miercoles", sede: "pellegrini", time: "20:05", name: "Luis Otero", course: "PSI14", role: "Promoción Comunitaria" },
+  { day: "miercoles", sede: "pellegrini", time: "15:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+
+  // ========== JUEVES ==========
+  { day: "jueves", sede: "pellegrini", time: "10:35", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "jueves", sede: "pellegrini", time: "10:35", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "jueves", sede: "pellegrini", time: "10:35", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "jueves", sede: "pellegrini", time: "17:00", name: "Victoria Rojas", course: "SOFT08/SOFT09", role: "Desarrollo de Software" },
+  { day: "jueves", sede: "pellegrini", time: "8:30", name: "Daiana Castillo", course: "ENF06/ENF08", role: "Enfermería" },
+  { day: "jueves", sede: "pellegrini", time: "8:30", name: "Jesus Lima", course: "ENF06/ENF08", role: "Enfermería" },
+  { day: "jueves", sede: "pellegrini", time: "8:30", name: "Luciana Pelegri", course: "ENF06/ENF08", role: "Enfermería" },
+  { day: "jueves", sede: "pellegrini", time: "15:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+  { day: "jueves", sede: "pellegrini", time: "20:05", name: "Luis Otero", course: "PSI14", role: "Promoción Comunitaria" },
+
+  // ========== VIERNES ==========
+  { day: "viernes", sede: "pellegrini", time: "8:30", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "8:30", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "14:00", name: "Liliana Galeano", course: "COM08", role: "Comunicación Digital" },
+  { day: "viernes", sede: "pellegrini", time: "15:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+  { day: "viernes", sede: "pellegrini", time: "18:00", name: "Marta", course: "DP04", role: "Diseño del Paisaje" },
+  { day: "viernes", sede: "pellegrini", time: "18:00", name: "Ezequiel Zelonka", course: "COM06", role: "Comunicación Digital" },
+
+  // ========== SÁBADO ==========
+  { day: "sabado", sede: "pellegrini", time: "8:30", name: "Zoe Kiara Solis", course: "SOFT02", role: "Desarrollo de Software" },
+  { day: "sabado", sede: "pellegrini", time: "8:30", name: "Martin Vera", course: "SOFT02", role: "Desarrollo de Software" },
+
+  // ========== REPRESENTANTES ADICIONALES ==========
+  // Victoria Rojas - SOFT
+  { day: "jueves", sede: "pellegrini", time: "17:00", name: "Victoria Rojas", course: "SOFT08/SOFT09", role: "Desarrollo de Software" },
+  { day: "miercoles", sede: "pellegrini", time: "20:05", name: "Victoria Rojas", course: "SOFT08/SOFT09", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "20:05", name: "Victoria Rojas", course: "SOFT08/SOFT09", role: "Desarrollo de Software" },
+  // Ovidio Ianni - RA02
+  { day: "martes", sede: "pellegrini", time: "8:30", name: "Ovidio Ianni", course: "RA02", role: "Realización Audiovisual" },
+  { day: "jueves", sede: "pellegrini", time: "8:30", name: "Ovidio Ianni", course: "RA02", role: "Realización Audiovisual" },
+  // Luis Gonzalez - SOFT adicional
+  { day: "martes", sede: "pellegrini", time: "14:00", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "15:00", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "16:05", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "martes", sede: "pellegrini", time: "17:00", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "miercoles", sede: "pellegrini", time: "18:00", name: "Luis Gonzalez", course: "SOFT06", role: "Desarrollo de Software" },
+  { day: "miercoles", sede: "pellegrini", time: "20:05", name: "Luis Gonzalez", course: "SOFT06", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "14:00", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "15:00", name: "Luis Gonzalez", course: "SOFT04", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "18:00", name: "Luis Gonzalez", course: "SOFT06", role: "Desarrollo de Software" },
+  { day: "viernes", sede: "pellegrini", time: "20:05", name: "Luis Gonzalez", course: "SOFT06", role: "Desarrollo de Software" }
+];
+
+const dayNames = {
+  lunes: "Lunes",
+  martes: "Martes",
+  miercoles: "Miércoles",
+  jueves: "Jueves",
+  viernes: "Viernes",
+  sabado: "Sábado"
+};
+
+const sedeNames = {
+  pellegrini: "Pellegrini",
+  parque: "Parque Industrial"
+};
+
+const turnoNames = {
+  manana: "🌤️ Mañana (8:00 - 13:00)",
+  tarde: "☀️ Tarde (14:00 - 18:00)",
+  noche: "🌙 Noche (18:00 - 22:00)"
+};
+
+// Map turno to matching time slots
+const turnoSlots = {
+  manana: ["8:30", "9:30", "10:35", "11:30"],
+  tarde: ["14:00", "15:00", "16:05", "17:00"],
+  noche: ["18:00", "19:00", "20:05", "21:00"]
+};
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function searchRepresentatives() {
+  const day = document.getElementById('filterDay').value;
+  const sede = document.getElementById('filterSede').value;
+  const time = document.getElementById('filterTime').value;
+  
+  if (!day || !sede || !time) {
+    const missing = [];
+    if (!day) missing.push('día');
+    if (!sede) missing.push('sede');
+    if (!time) missing.push('horario');
+    document.getElementById('repsList').innerHTML = `
+      <div class="reps-empty">
+        <div class="reps-empty-icon">⚠️</div>
+        <h4>Falta${missing.length > 1 ? 'n' : ''}: ${missing.join(', ')}</h4>
+        <p>Seleccioná ${missing.join(', ')} para buscar representantes disponibles.</p>
+      </div>`;
+    document.getElementById('repsCount').textContent = '—';
+    return;
+  }
+  
+  const slots = turnoSlots[time] || [];
+  let results = representatives.filter(r => r.day === day && r.sede === sede && slots.includes(r.time));
+  
+  document.getElementById('repsCount').textContent = String(results.length);
+  
+  if (results.length === 0) {
+    document.getElementById('repsList').innerHTML = `
+      <div class="reps-empty">
+        <div class="reps-empty-icon">🔍</div>
+        <h4>Sin representantes en este horario</h4>
+        <p>No se encontraron voceros asignados para ${dayNames[day]}, ${sedeNames[sede]} en el turno ${turnoNames[time]}. 
+        Probá con otro día, sede o turno.</p>
+      </div>`;
+    return;
+  }
+  
+  let html = '';
+  results.forEach(r => {
+    const initials = getInitials(r.name);
+    // Color based on role
+    const colors = {
+      'Enfermería': 'var(--red)',
+      'Desarrollo de Software': 'var(--blue)',
+      'Comunicación Digital': '#FF6B35',
+      'Promoción Comunitaria': '#00B894',
+      'Promoción Sociocultural': '#6C5CE7',
+      'Gestión Deportiva': '#00CEC9',
+      'Realización Audiovisual': '#E84393',
+      'Diseño del Paisaje': '#00B894'
+    };
+    const avatarColor = colors[r.role] || 'var(--gray)';
+    
+    html += `
+      <div class="rep-card">
+        <div class="rep-avatar" role="img" aria-label="Iniciales de ${r.name}" style="background:${avatarColor}">${initials}</div>
+        <div class="rep-info">
+          <h4>${r.name}</h4>
+          <div class="rep-meta">
+            <span class="rep-meta-item">📚 <strong>${r.course}</strong></span>
+            <span class="rep-meta-item">🏷️ ${r.role}</span>
+            <span class="rep-meta-item">📅 ${dayNames[r.day]}</span>
+            <span class="rep-meta-item">📍 ${sedeNames[r.sede]}</span>
+            <span class="rep-meta-item">⏰ ${r.time} hs</span>
+            <span class="rep-meta-item">🕐 ${turnoNames[time]}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+  
+  document.getElementById('repsList').innerHTML = html;
+}
+
+// =============================================
+// COVERAGE DATA
+// =============================================
+const coverageData = [
+  { carrera: "COM · Comunicación Digital", comisiones: 8, cubiertas: 3, color: "#FF6B35" },
+  { carrera: "DP · Diseño del Paisaje", comisiones: 6, cubiertas: 1, color: "#00B894" },
+  { carrera: "ENF · Enfermería Universitaria", comisiones: 8, cubiertas: 2, color: "var(--red)" },
+  { carrera: "GD · Gestión Deportiva", comisiones: 3, cubiertas: 1, color: "#00CEC9" },
+  { carrera: "PSI · Prom. Comunitaria en Niñez y Adolescencia", comisiones: 19, cubiertas: 2, color: "#00B894" },
+  { carrera: "PromSoc · Promoción Sociocultural", comisiones: 2, cubiertas: 1, color: "#6C5CE7" },
+  { carrera: "RA · Realización Audiovisual", comisiones: 7, cubiertas: 2, color: "#E84393" },
+  { carrera: "SOFT · Desarrollo de Software", comisiones: 10, cubiertas: 4, color: "var(--blue)" },
+  { carrera: "EME · Emergencias de la Salud", comisiones: 4, cubiertas: 0, color: "#636e72" },
+  { carrera: "BIO · Biotecnología", comisiones: 8, cubiertas: 0, color: "#636e72" },
+  { carrera: "AUT · Automatización y Control", comisiones: 4, cubiertas: 0, color: "#636e72" },
+  { carrera: "ALIM · Ciencia y Tecnología de los Alimentos", comisiones: 3, cubiertas: 0, color: "#636e72" }
+];
+
+function renderCoverage() {
+  const grid = document.getElementById('coverageGrid');
+  let html = '';
+  
+  coverageData.forEach(c => {
+    const pct = c.comisiones > 0 ? Math.round((c.cubiertas / c.comisiones) * 100) : 0;
+    if (c.comisiones === null) {
+      html += `
+      <div class="coverage-card" style="opacity:0.6">
+        <h4>${c.carrera}</h4>
+        <div class="coverage-bar-wrapper">
+          <div class="coverage-bar" style="width:0%;background:${c.color}"></div>
+        </div>
+        <div class="coverage-stat">
+          <span><strong>${c.cubiertas}</strong> comisiones cubiertas</span>
+          <span>Sin datos</span>
+        </div>
+      </div>`;
+    } else {
+      html += `
+      <div class="coverage-card">
+        <h4>${c.carrera}</h4>
+        <div class="coverage-bar-wrapper">
+          <div class="coverage-bar" style="width:${pct}%;background:${c.color}"></div>
+        </div>
+        <div class="coverage-stat">
+          <span><strong>${c.cubiertas}</strong> / ${c.comisiones} comisiones</span>
+          <span>${pct}%</span>
+        </div>
+      </div>`;
+    }
+  });
+  
+  grid.innerHTML = html;
+}
+
+// =============================================
+// INIT
+// =============================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderCoverage();
+});
+</script>
+</body>
+</html>
