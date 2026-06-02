@@ -500,6 +500,172 @@ section {
   min-width: 2rem;
 }
 
+/* ===== STATUTE FEEDBACK ===== */
+.statute-feedback {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.statute-feedback-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.statute-feedback-header h3 {
+  font-size: 1.2rem;
+  color: var(--white);
+}
+
+.statute-feedback-header p {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.88rem;
+  max-width: 380px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.sfb-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.sfb-select-wrap,
+.sfb-input-wrap {
+  position: relative;
+}
+
+.sfb-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: auto;
+}
+
+.sfb-select:focus {
+  border-color: var(--red);
+}
+
+.sfb-select option {
+  background: #252525;
+  color: var(--white);
+}
+
+.sfb-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sfb-input:focus {
+  border-color: var(--red);
+}
+
+.sfb-input::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.sfb-textarea {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  resize: vertical;
+  min-height: 110px;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.6;
+}
+
+.sfb-textarea:focus {
+  border-color: var(--red);
+}
+
+.sfb-textarea::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.sfb-footer {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sfb-note {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.28);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sfb-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 3px 14px rgba(255,49,49,0.3);
+  white-space: nowrap;
+}
+
+.sfb-submit:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,49,49,0.4);
+}
+
+.sfb-submit:active {
+  transform: translateY(0);
+}
+
+.sfb-empty-warn {
+  font-size: 0.78rem;
+  color: var(--red);
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .sfb-form { grid-template-columns: 1fr; }
+  .statute-feedback-header p { text-align: left; }
+}
+
 /* ===== STATUTE CHAT / AGENT ===== */
 .chat-container {
   background: rgba(255,255,255,0.04);
@@ -981,6 +1147,609 @@ footer strong {
 .text-center { text-align: center; }
 .mt-2 { margin-top: 2rem; }
 .mb-2 { margin-bottom: 2rem; }
+
+/* ============================================
+   BOLETO ESTUDIANTIL SECTION
+   ============================================ */
+.boleto-section {
+  background: #FFF8EE;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Diagonal stripe texture */
+.boleto-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 28px,
+    rgba(0,0,0,0.018) 28px,
+    rgba(0,0,0,0.018) 30px
+  );
+  pointer-events: none;
+}
+
+/* Rainbow top bar */
+.boleto-section::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--yellow) 0%, var(--red) 40%, var(--blue) 100%);
+}
+
+.boleto-section .section-title::after {
+  background: var(--red);
+}
+
+.boleto-section .tag {
+  background: rgba(255,49,49,0.1);
+  color: var(--red);
+  border: 1px solid rgba(255,49,49,0.2);
+}
+
+.boleto-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  align-items: start;
+}
+
+/* ---- Flyer column ---- */
+.boleto-flyer-col {
+  position: sticky;
+  top: 90px;
+}
+
+.boleto-flyer-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.boleto-flyer-wrap::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(255,49,49,0.5);
+  z-index: 2;
+}
+
+.boleto-flyer {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 6px 8px 24px rgba(0,0,0,0.18), -2px -2px 0px rgba(0,0,0,0.04);
+  transform: rotate(-2deg);
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease;
+  display: block;
+}
+
+.boleto-flyer:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 8px 16px 40px rgba(0,0,0,0.2);
+}
+
+.boleto-contact {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.btn-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: #25D366;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(37,211,102,0.3);
+}
+
+.btn-whatsapp:hover {
+  background: #1da851;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+}
+
+.btn-email {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--gray);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-decoration: none;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  word-break: break-all;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.btn-email:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(43,0,255,0.04);
+}
+
+/* ---- Cards column ---- */
+.boleto-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Alert card */
+.boleto-card-alerta {
+  background: var(--black);
+  color: var(--white);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  position: relative;
+  overflow: hidden;
+  border-left: 5px solid var(--red);
+}
+
+.boleto-card-alerta::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 150px;
+  height: 150px;
+  background: var(--red);
+  opacity: 0.06;
+  border-radius: 50%;
+}
+
+.boleto-alerta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  background: rgba(255,49,49,0.12);
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.85rem;
+  animation: pulseTag 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseTag {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.boleto-card-alerta h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.boleto-card-alerta h3 em {
+  color: var(--yellow);
+  font-style: normal;
+}
+
+.boleto-lineas {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1.2rem;
+}
+
+.boleto-lineas strong {
+  color: var(--yellow);
+}
+
+.boleto-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.boleto-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.boleto-checklist li::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--yellow);
+  border-radius: 5px;
+  flex-shrink: 0;
+  background: rgba(255,222,89,0.1);
+}
+
+.boleto-sube-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  background: rgba(255,222,89,0.08);
+  border: 1px solid rgba(255,222,89,0.2);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.boleto-sube-tip:hover {
+  background: rgba(255,222,89,0.14);
+  border-color: rgba(255,222,89,0.4);
+}
+
+.boleto-sube-tip-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.boleto-sube-tip strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--yellow);
+  margin-bottom: 0.25rem;
+}
+
+.boleto-sube-tip span {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+.boleto-sube-tip-arrow {
+  font-size: 1rem;
+  color: var(--yellow);
+  opacity: 0.6;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-top: 2px;
+  transition: opacity 0.2s;
+}
+
+.boleto-sube-tip:hover .boleto-sube-tip-arrow {
+  opacity: 1;
+}
+
+.boleto-cta-text {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Info card */
+.boleto-card-info {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-left: 5px solid var(--blue);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.boleto-info-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: rgba(43,0,255,0.07);
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.85rem;
+}
+
+.boleto-card-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.25rem;
+  color: var(--black);
+}
+
+.boleto-datos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.boleto-dato {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.65rem 0.85rem;
+  background: var(--off-white);
+  border-radius: 10px;
+  font-size: 0.88rem;
+}
+
+.boleto-dato-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  min-width: 70px;
+  padding-top: 2px;
+}
+
+.boleto-dato span:last-child {
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+.boleto-dato span:last-child small {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gray-light);
+}
+
+.boleto-beneficio {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--black);
+  border-radius: 14px;
+  margin-bottom: 1rem;
+}
+
+.boleto-numero {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--yellow);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.boleto-beneficio-text {
+  color: rgba(255,255,255,0.9);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.boleto-beneficio-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.boleto-beneficio-text small {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.75rem;
+}
+
+.boleto-nota {
+  font-size: 0.78rem;
+  color: var(--gray-light);
+  line-height: 1.6;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+@media (max-width: 900px) {
+  .boleto-grid { grid-template-columns: 1fr; }
+  .boleto-flyer-col { position: static; }
+  .boleto-flyer-wrap { max-width: 260px; margin: 0 auto; display: block; }
+}
+
+/* ============================================
+   MATERO / COMUNIDAD SECTION
+   ============================================ */
+.matero-section {
+  background: #111a10;
+  position: relative;
+  overflow: hidden;
+}
+
+.matero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(74,140,48,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 20%, rgba(34,90,20,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.matero-section::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4a8c30, #2d6e18, #83c45a);
+}
+
+.matero-grid {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.matero-content .tag {
+  background: rgba(74,140,48,0.15);
+  color: #83c45a;
+  border: 1px solid rgba(74,140,48,0.25);
+}
+
+.matero-content .section-title {
+  color: #fff;
+}
+
+.matero-content .section-title::after {
+  background: #4a8c30;
+}
+
+.matero-slogan {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #83c45a;
+  letter-spacing: -0.01em;
+  margin: 0.75rem 0 1.5rem;
+}
+
+.matero-slogan span {
+  color: rgba(255,255,255,0.35);
+  margin: 0 0.4rem;
+  font-weight: 400;
+}
+
+.matero-acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.matero-accion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.matero-accion:hover {
+  background: rgba(74,140,48,0.1);
+  border-color: rgba(74,140,48,0.25);
+}
+
+.matero-accion-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.matero-accion-text {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.45;
+}
+
+.matero-accion-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.15rem;
+}
+
+.matero-tu-accion {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #83c45a;
+  letter-spacing: 0.05em;
+}
+
+.matero-poster-col {
+  position: relative;
+}
+
+.matero-poster-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.matero-poster-wrap::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: #4a8c30;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(74,140,48,0.5);
+  z-index: 2;
+}
+
+.matero-poster {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 8px 10px 30px rgba(0,0,0,0.5), -2px -2px 0 rgba(255,255,255,0.03);
+  transform: rotate(1.5deg);
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s;
+  display: block;
+}
+
+.matero-poster:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 10px 18px 50px rgba(0,0,0,0.55);
+}
+
+@media (max-width: 900px) {
+  .matero-grid {
+    grid-template-columns: 1fr;
+  }
+  .matero-poster-col {
+    order: -1;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+  .matero-acciones {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -998,6 +1767,8 @@ footer strong {
     <li><a href="#estatuto">Estatuto</a></li>
     <li><a href="#representantes">Representantes</a></li>
     <li><a href="#cobertura">Cobertura</a></li>
+    <li><a href="#boleto">Boleto</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
   </ul>
 </nav>
 
@@ -1056,15 +1827,17 @@ footer strong {
     <div class="about-grid">
       <div class="about-text">
         <p>
-          El <strong>Centro de Estudiantes de la Universidad Nacional de Pilar</strong> nace
-          como un espacio autónomo, democrático y representativo del claustro estudiantil,
-          constituido en Asamblea General durante el proceso fundacional de la universidad.
+          El <strong>Centro de Estudiantes de la Universidad Nacional de Pilar</strong> se concibe
+          como un ámbito autónomo de representación, diálogo e incidencia, comprometido con
+          la defensa de los derechos estudiantiles y el fortalecimiento institucional de
+          nuestra Universidad.
         </p>
         <p>
-          Somos una organización gremial, sin fines de lucro, independiente de las autoridades
-          universitarias y de partidos políticos. Nuestro compromiso es la defensa de los
-          derechos estudiantiles, el fortalecimiento institucional y la construcción de una
-          comunidad universitaria participativa, crítica y solidaria.
+          Hoy somos la <strong>Junta Promotora</strong> — el colectivo que está construyendo
+          los cimientos del Centro, operando <strong>interinamente</strong> hasta poder convocar
+          las primeras elecciones estudiantiles. Sin fines de lucro, sin atadura a ningún
+          partido político, y en diálogo permanente con las autoridades de la Universidad:
+          <strong>autónomos, pero no solos.</strong>
         </p>
         <p>
           Creemos en la educación pública, gratuita y de calidad como pilar fundamental
@@ -1159,6 +1932,55 @@ footer strong {
         </div>
       </div>
     </div>
+
+    <!-- Feedback estatuto -->
+    <div class="statute-feedback">
+      <div class="statute-feedback-header">
+        <div>
+          <h3>¿Tenés una propuesta para el Estatuto?</h3>
+        </div>
+        <p>Cada observación, duda o sugerencia suma para construirlo entre todos. Te respondemos por mail.</p>
+      </div>
+
+      <div class="sfb-form">
+        <div class="sfb-select-wrap">
+          <select id="sfbTipo" class="sfb-select">
+            <option value="Propuesta de modificación">📝 Propuesta de modificación</option>
+            <option value="Observación">🔍 Observación</option>
+            <option value="Consulta">❓ Consulta o duda</option>
+            <option value="Otro">💬 Otro</option>
+          </select>
+        </div>
+
+        <div class="sfb-input-wrap">
+          <input
+            type="text"
+            id="sfbArticulo"
+            class="sfb-input"
+            placeholder="Artículo o sección (ej: Art. 6, Título III…)"
+          >
+        </div>
+
+        <textarea
+          id="sfbMensaje"
+          class="sfb-textarea"
+          placeholder="Escribí tu mensaje acá. Podés ser tan breve o detallado como quieras — todo lo que llegue lo leemos."
+        ></textarea>
+
+        <div class="sfb-footer">
+          <span class="sfb-note">
+            📬 Se abre tu cliente de correo con el mensaje listo para enviar a <strong style="color:rgba(255,255,255,0.45)">centroestudiantes.unpi@gmail.com</strong>
+          </span>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem">
+            <span class="sfb-empty-warn" id="sfbWarn">⚠️ Escribí algo antes de enviar</span>
+            <button class="sfb-submit" onclick="enviarSugerencia()">
+              Enviar sugerencia ✉️
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1246,6 +2068,156 @@ footer strong {
     </p>
     <div class="coverage-grid" id="coverageGrid">
       <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     BOLETO ESTUDIANTIL
+     ============================================ -->
+<section class="boleto-section" id="boleto">
+  <div class="section-inner">
+    <span class="tag">🚌 Transporte · Mayo 2026</span>
+    <h2 class="section-title display-medium">Boleto Estudiantil</h2>
+    <p style="color:var(--gray);margin-top:0.5rem;font-size:1.05rem;">
+      Conocé tus derechos y cómo tramitar tu pase en las líneas de Pilar.
+    </p>
+
+    <div class="boleto-grid">
+
+      <!-- Flyer + contacto -->
+      <div class="boleto-flyer-col">
+        <div class="boleto-flyer-wrap">
+          <img src="flyer boleto.jpeg" alt="Flyer boleto estudiantil UNPilar" class="boleto-flyer">
+        </div>
+        <div class="boleto-contact">
+          <a href="https://chat.whatsapp.com/EaVuTR1TWej0UxXi9ZEmnz" target="_blank" rel="noopener" class="btn-whatsapp">
+            💬 Comunidad WhatsApp
+          </a>
+          <a href="mailto:centroestudiantes.unpi@gmail.com" class="btn-email">
+            ✉️ centroestudiantes.unpi@gmail.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Tarjetas -->
+      <div class="boleto-cards-col">
+
+        <!-- Tarjeta alerta: reclamo -->
+        <div class="boleto-card-alerta">
+          <div class="boleto-alerta-tag">⚠️ Si el chofer no te cobra</div>
+          <h3>¡No te quedes sin <em>hacer nada</em>!</h3>
+          <p class="boleto-lineas">
+            Aplica a <strong>Líneas 500 de Pilar</strong>
+            <span> · no incluye 276, 233, 57, 203</span>
+          </p>
+          <ul class="boleto-checklist">
+            <li>Interno del colectivo</li>
+            <li>Número de línea</li>
+            <li>Lugar y hora</li>
+          </ul>
+          <a href="https://tarjetasube.sube.gob.ar/SubeWeb/WebForms/Account/Views/Login.aspx" target="_blank" rel="noopener" class="boleto-sube-tip">
+            <div class="boleto-sube-tip-icon">💳</div>
+            <div>
+              <strong>Verificá en Mi SUBE</strong>
+              <span>Entrando con tu clave de 4 dígitos podés ver tus viajes y los descuentos aplicados — ahí vas a poder confirmar en qué interno no te tomaron el boleto estudiantil.</span>
+            </div>
+            <div class="boleto-sube-tip-arrow">↗</div>
+          </a>
+          <p class="boleto-cta-text">
+            Anotá esos tres datos y contactanos por WhatsApp o mail para que tomemos tu reclamo y defendamos el derecho juntos. ✊
+          </p>
+        </div>
+
+        <!-- Tarjeta info: tramitar -->
+        <div class="boleto-card-info">
+          <div class="boleto-info-tag">🏛️ Boleto Municipal Oficial</div>
+          <h3>¿Cómo tramitarlo?</h3>
+          <div class="boleto-datos">
+            <div class="boleto-dato">
+              <span class="boleto-dato-label">Dónde</span>
+              <span>Punto Muni · Palacio Municipal<small>Bolívar entre Rivadavia e Ituzaingó</small></span>
+            </div>
+            <div class="boleto-dato">
+              <span class="boleto-dato-label">Horario</span>
+              <span>Lunes a viernes, 8 a 15 hs<small>Sábados a la mañana con boleto activo</small></span>
+            </div>
+            <div class="boleto-dato">
+              <span class="boleto-dato-label">Requisitos</span>
+              <span>DNI + tarjeta SUBE<small>Sin SUBE, se tramita en el momento</small></span>
+            </div>
+          </div>
+          <div class="boleto-beneficio">
+            <div class="boleto-numero">45</div>
+            <div class="boleto-beneficio-text">
+              <strong>viajes mensuales</strong>
+              <small>Líneas 501 · 503 · 506 · 509 · 510 · 511 · 520</small>
+            </div>
+          </div>
+          <p class="boleto-nota">
+            ✅ Los pasajes se actualizan automáticamente todos los meses · Disponible para estudiantes regulares de todas las carreras y años de la UNPilar
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     MATERO / COMUNIDAD
+     ============================================ -->
+<section class="matero-section" id="comunidad">
+  <div class="section-inner">
+    <div class="matero-grid">
+
+      <div class="matero-content">
+        <span class="tag">🌿 Convivencia · UNPilar</span>
+        <h2 class="section-title display-medium">Cuidemos<br>nuestra Uni</h2>
+        <p class="matero-slogan">
+          Respetá<span>·</span>Cuidá<span>·</span>Colaborá
+        </p>
+
+        <div class="matero-acciones">
+          <div class="matero-accion">
+            <div class="matero-accion-icon">♻️</div>
+            <div class="matero-accion-text">
+              <strong>Tirá la yerba</strong>
+              En los lugares designados para residuos
+            </div>
+          </div>
+          <div class="matero-accion">
+            <div class="matero-accion-icon">🧹</div>
+            <div class="matero-accion-text">
+              <strong>Orden y limpieza</strong>
+              Dejá el espacio como te gustaría encontrarlo
+            </div>
+          </div>
+          <div class="matero-accion">
+            <div class="matero-accion-icon">🌱</div>
+            <div class="matero-accion-text">
+              <strong>Cuidá el ambiente</strong>
+              La Uni es un espacio compartido entre todos
+            </div>
+          </div>
+          <div class="matero-accion">
+            <div class="matero-accion-icon">🤝</div>
+            <div class="matero-accion-text">
+              <strong>Un espacio para todos</strong>
+              Más limpio, más cómodo, más nuestro
+            </div>
+          </div>
+        </div>
+
+        <p class="matero-tu-accion">✦ Tu acción hace la diferencia</p>
+      </div>
+
+      <div class="matero-poster-col">
+        <div class="matero-poster-wrap">
+          <img src="cartel matero.jpg" alt="Mantengamos limpia nuestra zona matera · UNPilar" class="matero-poster">
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1450,6 +2422,34 @@ function askStatute(query) {
     
     messages.scrollTop = messages.scrollHeight;
   }, 600 + Math.random() * 400);
+}
+
+// =============================================
+// STATUTE FEEDBACK
+// =============================================
+function enviarSugerencia() {
+  const tipo     = document.getElementById('sfbTipo').value;
+  const articulo = document.getElementById('sfbArticulo').value.trim();
+  const mensaje  = document.getElementById('sfbMensaje').value.trim();
+  const warn     = document.getElementById('sfbWarn');
+
+  if (!mensaje) {
+    warn.style.display = 'block';
+    document.getElementById('sfbMensaje').focus();
+    return;
+  }
+  warn.style.display = 'none';
+
+  const asunto = articulo
+    ? `[Estatuto] ${tipo} — ${articulo}`
+    : `[Estatuto] ${tipo}`;
+
+  const cuerpo = `${mensaje}\n\n---\nEnviado desde la página web del Centro de Estudiantes · UNPilar`;
+
+  window.location.href =
+    `mailto:centroestudiantes.unpi@gmail.com` +
+    `?subject=${encodeURIComponent(asunto)}` +
+    `&body=${encodeURIComponent(cuerpo)}`;
 }
 
 // =============================================
