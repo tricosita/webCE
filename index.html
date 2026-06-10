@@ -480,24 +480,119 @@ section {
   gap: 0.5rem;
 }
 
-.statute-articles li {
+.statute-item {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  flex-direction: column;
   padding: 0.7rem 1rem;
   background: rgba(255,255,255,0.04);
   border-radius: 10px;
   border-left: 3px solid var(--red);
   font-size: 0.9rem;
   color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
 }
 
-.statute-articles li span {
+.statute-item:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.statute-item.open {
+  border-left-color: var(--yellow);
+  background: rgba(255,255,255,0.06);
+}
+
+.statute-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  user-select: none;
+}
+
+.statute-item-header .statute-num {
   font-family: var(--font-display);
   font-weight: 700;
   color: var(--yellow);
   font-size: 0.8rem;
   min-width: 2rem;
+}
+
+.statute-item-title {
+  flex: 1;
+}
+
+.statute-arrow {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.3);
+  transition: transform 0.3s ease, color 0.2s;
+}
+
+.statute-item.open .statute-arrow {
+  transform: rotate(180deg);
+  color: var(--yellow);
+}
+
+.statute-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.statute-item.open .statute-expand {
+  max-height: 3000px;
+}
+
+.statute-expand-inner {
+  padding-top: 0.85rem;
+  margin-top: 0.6rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.statute-expand-chapter {
+  font-size: 0.68rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0 0.1rem;
+}
+
+.statute-expand-article {
+  padding: 0.7rem 0.9rem;
+  background: rgba(0,0,0,0.25);
+  border-radius: 8px;
+  border-left: 2px solid rgba(255,255,255,0.08);
+}
+
+.statute-expand-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.statute-expand-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.35rem;
+}
+
+.statute-expand-content {
+  font-size: 0.81rem;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.65;
+  margin: 0;
 }
 
 /* ===== STATUTE FEEDBACK ===== */
@@ -1149,6 +1244,283 @@ footer strong {
 .mb-2 { margin-bottom: 2rem; }
 
 /* ============================================
+   ASAMBLEA MODAL
+   ============================================ */
+.asamblea-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: overlayIn 0.35s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.asamblea-overlay.hiding {
+  animation: overlayOut 0.3s ease forwards;
+}
+
+@keyframes overlayOut {
+  to { opacity: 0; }
+}
+
+.asamblea-modal {
+  background: var(--black);
+  border-radius: 24px;
+  max-width: 560px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.07);
+  animation: modalIn 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.asamblea-topbar {
+  height: 5px;
+  background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue));
+}
+
+.asamblea-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  background: rgba(255,222,89,0.1);
+  border: 1px solid rgba(255,222,89,0.25);
+  padding: 0.3rem 0.85rem;
+  border-radius: 100px;
+  animation: badgePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,222,89,0); }
+  50%      { opacity: 0.85; box-shadow: 0 0 0 6px rgba(255,222,89,0.08); }
+}
+
+.asamblea-body {
+  padding: 1.75rem 2rem 2rem;
+}
+
+.asamblea-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.asamblea-close {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+  line-height: 1;
+}
+
+.asamblea-close:hover {
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+}
+
+.asamblea-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.asamblea-title .highlight {
+  color: var(--yellow);
+}
+
+.asamblea-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+  margin-bottom: 1.4rem;
+}
+
+.asamblea-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+
+.asamblea-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+}
+
+.asamblea-detail-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.asamblea-detail-text {
+  line-height: 1.35;
+}
+
+.asamblea-detail-label {
+  font-size: 0.68rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.32);
+  display: block;
+  margin-bottom: 0.1rem;
+}
+
+.asamblea-detail-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+.asamblea-detail.highlight-detail {
+  border-color: rgba(255,222,89,0.2);
+  background: rgba(255,222,89,0.05);
+  grid-column: 1 / -1;
+}
+
+.asamblea-detail.highlight-detail .asamblea-detail-value {
+  color: var(--yellow);
+}
+
+.asamblea-qr-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  margin-bottom: 1.25rem;
+}
+
+.asamblea-qr-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: var(--white);
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.asamblea-qr-text {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+}
+
+.asamblea-qr-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.2rem;
+}
+
+.asamblea-cta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.asamblea-btn-primary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.25rem;
+  border-radius: 12px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 18px rgba(255,49,49,0.35);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.asamblea-btn-primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-1px);
+}
+
+.asamblea-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  border-radius: 12px;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.asamblea-btn-secondary:hover {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.25);
+}
+
+@media (max-width: 500px) {
+  .asamblea-body { padding: 1.25rem 1.25rem 1.5rem; }
+  .asamblea-details { grid-template-columns: 1fr; }
+  .asamblea-detail.highlight-detail { grid-column: 1; }
+  .asamblea-cta { flex-direction: column; }
+  .asamblea-btn-primary { flex: none; }
+}
+
+/* ============================================
    BOLETO ESTUDIANTIL SECTION
    ============================================ */
 .boleto-section {
@@ -1755,6 +2127,73 @@ footer strong {
 <body>
 
 <!-- ============================================
+     ASAMBLEA MODAL
+     ============================================ -->
+<div class="asamblea-overlay" id="asambleaOverlay" role="dialog" aria-modal="true" aria-label="Convocatoria Primera Asamblea General">
+  <div class="asamblea-modal">
+    <div class="asamblea-topbar"></div>
+    <div class="asamblea-body">
+      <div class="asamblea-header">
+        <span class="asamblea-badge">⚡ Convocatoria oficial</span>
+        <button class="asamblea-close" onclick="cerrarAsamblea()" aria-label="Cerrar">✕</button>
+      </div>
+
+      <h2 class="asamblea-title">Primera<br><span class="highlight">Asamblea General</span></h2>
+      <p class="asamblea-subtitle">
+        🙌🏽 Queremos invitarte formalmente a debatir y votar el Estatuto del Centro de Estudiantes.<br>
+        Es un paso determinante para nuestra universidad y <strong style="color:rgba(255,255,255,0.85)">tu voz es clave</strong> para definir cómo queremos formarlo. <strong style="color:var(--yellow)">¡No te quedes afuera!</strong>
+      </p>
+
+      <div class="asamblea-details">
+        <div class="asamblea-detail">
+          <span class="asamblea-detail-icon">🗓️</span>
+          <div class="asamblea-detail-text">
+            <span class="asamblea-detail-label">Cuándo</span>
+            <span class="asamblea-detail-value">Martes 16 de Junio</span>
+          </div>
+        </div>
+        <div class="asamblea-detail">
+          <span class="asamblea-detail-icon">🕒</span>
+          <div class="asamblea-detail-text">
+            <span class="asamblea-detail-label">A qué hora</span>
+            <span class="asamblea-detail-value">15:00 hs</span>
+          </div>
+        </div>
+        <div class="asamblea-detail highlight-detail">
+          <span class="asamblea-detail-icon">📍</span>
+          <div class="asamblea-detail-text">
+            <span class="asamblea-detail-label">Dónde</span>
+            <span class="asamblea-detail-value">Aula 9 · Sede Pellegrini</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="asamblea-qr-row">
+        <img
+          class="asamblea-qr-img"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=1A1A1A&bgcolor=ffffff&data=https://chat.whatsapp.com/EaVuTR1TWej0UxXi9ZEmnz"
+          alt="QR Comunidad WhatsApp Centro de Estudiantes UNPilar"
+        >
+        <div class="asamblea-qr-text">
+          <strong>📲 Comunidad de WhatsApp</strong>
+          Escaneá el QR o hacé click en el botón para unirte. Ahí encontrarás el Estatuto completo, novedades y coordinación de la participación.
+        </div>
+      </div>
+
+      <div class="asamblea-cta">
+        <a href="https://chat.whatsapp.com/EaVuTR1TWej0UxXi9ZEmnz" target="_blank" rel="noopener" class="asamblea-btn-primary">
+          💬 Unirme a la comunidad
+        </a>
+        <button class="asamblea-btn-secondary" onclick="cerrarAsamblea()">
+          Ya soy parte ✓
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
      NAVIGATION
      ============================================ -->
 <nav>
@@ -1893,15 +2332,15 @@ footer strong {
           desde la naturaleza del Centro hasta el régimen disciplinario y electoral.
         </p>
         <ul class="statute-articles">
-          <li><span>I</span> Naturaleza, Fines y Principios</li>
-          <li><span>II</span> Membresía</li>
-          <li><span>III</span> Órganos de Gobierno</li>
-          <li><span>IV</span> Régimen Electoral</li>
-          <li><span>V</span> Régimen Económico</li>
-          <li><span>VI</span> Paridad, Inclusión y Protección</li>
-          <li><span>VII</span> Espacios Informativos</li>
-          <li><span>VIII</span> Régimen Disciplinario</li>
-          <li><span>IX</span> Reforma y Disposiciones Finales</li>
+          <li class="statute-item" data-section="I"><div class="statute-item-header"><span class="statute-num">I</span><span class="statute-item-title">Naturaleza, Fines y Principios</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="II"><div class="statute-item-header"><span class="statute-num">II</span><span class="statute-item-title">Membresía</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="III"><div class="statute-item-header"><span class="statute-num">III</span><span class="statute-item-title">Órganos de Gobierno</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="IV"><div class="statute-item-header"><span class="statute-num">IV</span><span class="statute-item-title">Régimen Electoral</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="V"><div class="statute-item-header"><span class="statute-num">V</span><span class="statute-item-title">Régimen Económico</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="VI"><div class="statute-item-header"><span class="statute-num">VI</span><span class="statute-item-title">Paridad, Inclusión y Protección</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="VII"><div class="statute-item-header"><span class="statute-num">VII</span><span class="statute-item-title">Espacios Informativos</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="VIII"><div class="statute-item-header"><span class="statute-num">VIII</span><span class="statute-item-title">Régimen Disciplinario</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
+          <li class="statute-item" data-section="IX"><div class="statute-item-header"><span class="statute-num">IX</span><span class="statute-item-title">Reforma y Disposiciones Finales</span><span class="statute-arrow">▾</span></div><div class="statute-expand"></div></li>
         </ul>
       </div>
 
@@ -2714,7 +3153,66 @@ function renderCoverage() {
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
   renderCoverage();
+  initStatuteAccordion();
 });
+
+function cerrarAsamblea() {
+  const overlay = document.getElementById('asambleaOverlay');
+  overlay.classList.add('hiding');
+  setTimeout(() => overlay.remove(), 300);
+}
+
+// Cerrar con Escape o click en overlay
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') cerrarAsamblea();
+});
+document.getElementById('asambleaOverlay')?.addEventListener('click', e => {
+  if (e.target === e.currentTarget) cerrarAsamblea();
+});
+
+function initStatuteAccordion() {
+  document.querySelectorAll('.statute-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const section = item.dataset.section;
+      const expand = item.querySelector('.statute-expand');
+      const isOpen = item.classList.contains('open');
+
+      // Cerrar todos
+      document.querySelectorAll('.statute-item').forEach(el => el.classList.remove('open'));
+
+      if (!isOpen) {
+        const articles = statuteData.filter(art => art.section.startsWith('Título ' + section));
+
+        // Agrupar por capítulo
+        const chapters = {};
+        articles.forEach(art => {
+          if (!chapters[art.section]) chapters[art.section] = [];
+          chapters[art.section].push(art);
+        });
+
+        const multiChapter = Object.keys(chapters).length > 1;
+        let html = '<div class="statute-expand-inner">';
+
+        Object.entries(chapters).forEach(([chapterKey, arts]) => {
+          if (multiChapter) {
+            const label = chapterKey.replace('Título ' + section, '').replace(/^[\s\-]+/, '') || chapterKey;
+            html += `<div class="statute-expand-chapter">${label}</div>`;
+          }
+          arts.forEach(art => {
+            html += `<div class="statute-expand-article">
+              <div class="statute-expand-title"><span class="statute-expand-num">Art. ${art.articles}</span>${art.title}</div>
+              <p class="statute-expand-content">${art.content}</p>
+            </div>`;
+          });
+        });
+
+        html += '</div>';
+        expand.innerHTML = html;
+        item.classList.add('open');
+      }
+    });
+  });
+}
 </script>
 </body>
 </html>
