@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!--
+  DESIGN RATIONALE — censo-transporte.html
+  =========================================
+  Proyecto: CEUNPi · Censo "Cómo Nos Movemos"
+  Audiencia: estudiantado UNP (mobile-first), autoridades (desktop), público general (web)
+  Registro: urgencia informada — no académico-aséptico, no activismo gráfico ruidoso.
+             Evidencia con posición.
+  Sistema visual: hereda identidad de index.html — Space Grotesk + Inter, paleta
+                  #FF3131 / #FFDE59 / #2B00FF / #1A1A1A / #F5F3F0
+  Jerarquía narrativa: 1) cifra de impacto → 2) distinción clave (falta del colectivero
+                       vs. línea sin cobertura) → 3) qué líneas → 4) fricción sistémica
+  Lo que NO hace: mapas, exportación, análisis cruzado. Lectura limpia, foco único.
+  
+  LAYER MAP:
+  - Surface: KPIs, clasificación binaria, CTA de participación
+  - Middle:  gráficos de líneas afectadas (toggle entre categorías), puntos de fricción
+  - Deep:    nota metodológica (collapsible)
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo Nos Movemos · Censo de Transporte · CEUNPi</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   ROOT — hereda tokens de index.html
+   ============================================ */
+:root {
+  --red: #FF3131;
+  --red-dark: #CC0000;
+  --yellow: #FFDE59;
+  --blue: #2B00FF;
+  --blue-light: #4A7CFF;
+  --black: #1A1A1A;
+  --dark: #252525;
+  --gray: #3E3E3E;
+  --gray-light: #6B6B6B;
+  --white: #FFFFFF;
+  --off-white: #F5F3F0;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--off-white);
+  color: var(--black);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   NAV — clon exacto de index.html
+   ============================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(26,26,26,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+  color: var(--white); text-decoration: none;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.nav-logo .logo-dot {
+  width: 10px; height: 10px;
+  background: var(--red); border-radius: 50%; display: inline-block;
+}
+.nav-back {
+  color: rgba(255,255,255,0.6); text-decoration: none;
+  font-size: 0.85rem; font-family: var(--font-display);
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--yellow); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  min-height: 60vh;
+  background: var(--black);
+  display: flex; align-items: flex-end;
+  padding: 8rem 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, var(--red) 0%, transparent 45%),
+    radial-gradient(circle at 20% 70%, var(--blue) 0%, transparent 40%);
+  opacity: 0.2;
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em;
+  padding: 0.3rem 0.8rem; border-radius: 100px;
+  background: var(--yellow); color: var(--black);
+  margin-bottom: 1.2rem;
+}
+.hero-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  color: var(--white); line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+.hero-title em {
+  font-style: normal; color: var(--red);
+}
+.hero-subtitle {
+  color: rgba(255,255,255,0.65);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 600px; margin-bottom: 2rem;
+}
+.hero-meta {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+}
+.hero-stat {
+  display: flex; flex-direction: column; gap: 0.2rem;
+}
+.hero-stat-num {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 2rem; color: var(--yellow); line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.8rem; color: rgba(255,255,255,0.5);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+/* ============================================
+   MAIN CONTENT WRAPPER
+   ============================================ */
+main { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.section { margin-bottom: 5rem; }
+
+.section-eyebrow {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--gray-light); margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  line-height: 1.15; margin-bottom: 1rem;
+  position: relative; display: inline-block;
+}
+.section-title::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 48px; height: 4px;
+  background: var(--yellow); border-radius: 2px;
+}
+.section-lead {
+  font-size: 1rem; color: var(--gray); max-width: 680px;
+  margin-bottom: 2.5rem; margin-top: 1rem;
+}
+
+/* ============================================
+   KPI CARDS — SURFACE LAYER
+   ============================================ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+.kpi-card {
+  background: var(--white);
+  padding: 1.8rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+.kpi-card.accent {
+  background: var(--black);
+}
+.kpi-card.accent .kpi-num { color: var(--red); }
+.kpi-card.accent .kpi-label { color: rgba(255,255,255,0.55); }
+.kpi-num {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3rem); line-height: 1;
+  color: var(--black);
+}
+.kpi-label {
+  font-size: 0.82rem; color: var(--gray-light);
+  line-height: 1.35;
+}
+.kpi-pct {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.8rem; color: var(--gray-light);
+  margin-top: 0.2rem;
+}
+
+/* ============================================
+   CLASIFICACIÓN BINARIA — SURFACE LAYER
+   ============================================ */
+.clasif-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 600px) {
+  .clasif-grid { grid-template-columns: 1fr; }
+}
+.clasif-card {
+  border-radius: 12px; padding: 2rem 1.5rem;
+  position: relative; overflow: hidden;
+}
+.clasif-card.tipo-a {
+  background: var(--red);
+  color: var(--white);
+}
+.clasif-card.tipo-b {
+  background: var(--off-white);
+  border: 2px solid var(--black);
+  color: var(--black);
+}
+.clasif-tipo {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+  opacity: 0.75; margin-bottom: 0.8rem;
+  display: block;
+}
+.clasif-num {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.8rem, 6vw, 3.8rem); line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.clasif-desc {
+  font-size: 0.95rem; line-height: 1.4; max-width: 260px;
+}
+.clasif-card.tipo-a .clasif-desc { opacity: 0.9; }
+.clasif-note {
+  font-size: 0.78rem; margin-top: 1rem; opacity: 0.7;
+  font-style: italic;
+}
+.clasif-mixed {
+  background: var(--black); color: var(--white);
+  border-radius: 8px; padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.9rem;
+}
+.clasif-mixed strong {
+  font-family: var(--font-display); font-size: 1.6rem;
+  color: var(--yellow); min-width: 3rem;
+}
+
+/* ============================================
+   LÍNEAS — TOGGLE + BARRAS — MIDDLE LAYER
+   ============================================ */
+.toggle-bar {
+  display: flex; gap: 0.5rem; margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.toggle-btn {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0.55rem 1.1rem; border-radius: 100px; cursor: pointer;
+  border: 2px solid var(--black);
+  background: transparent; color: var(--black);
+  transition: background 0.18s, color 0.18s;
+  min-height: 44px;
+}
+.toggle-btn.active.red { background: var(--red); border-color: var(--red); color: var(--white); }
+.toggle-btn.active.gray { background: var(--black); border-color: var(--black); color: var(--white); }
+.toggle-btn:not(.active):hover { background: var(--off-white); }
+
+.lineas-panel { display: none; }
+.lineas-panel.visible { display: block; }
+
+.linea-row {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.linea-num {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1rem; min-width: 52px; text-align: right;
+}
+.bar-track {
+  flex: 1; background: rgba(0,0,0,0.08);
+  border-radius: 4px; height: 10px; overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.bar-fill.red { background: var(--red); }
+.bar-fill.dark { background: var(--black); }
+.linea-count {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.85rem; min-width: 3rem;
+  color: var(--gray);
+}
+.linea-count span {
+  font-weight: 400; font-size: 0.75rem; color: var(--gray-light);
+}
+
+.lineas-footnote {
+  font-size: 0.82rem; color: var(--gray-light);
+  margin-top: 1.5rem; padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  font-style: italic;
+}
+
+/* ============================================
+   FRICCIÓN — BARRAS HORIZONTALES — MIDDLE LAYER
+   ============================================ */
+.friccion-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.friccion-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+}
+.friccion-label {
+  font-size: 0.92rem; font-weight: 500; line-height: 1.3;
+}
+.friccion-label.highlight {
+  font-weight: 700; color: var(--red);
+}
+.friccion-bar-wrap {
+  grid-column: 1 / -1;
+  background: rgba(0,0,0,0.07); border-radius: 4px;
+  height: 8px; overflow: hidden; margin-top: -0.6rem;
+}
+.friccion-bar {
+  height: 100%; border-radius: 4px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.friccion-item {
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  padding-bottom: 0.8rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.friccion-item:last-child { border-bottom: none; }
+.friccion-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.friccion-count {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.1rem;
+}
+.friccion-pct {
+  font-size: 0.78rem; color: var(--gray-light); margin-left: 0.3rem;
+}
+
+/* ============================================
+   CTA — PARTICIPACIÓN
+   ============================================ */
+.cta-block {
+  background: var(--black); border-radius: 16px;
+  padding: 3rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.cta-text h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--white); margin-bottom: 0.5rem;
+}
+.cta-text p {
+  color: rgba(255,255,255,0.6); font-size: 0.95rem; max-width: 420px;
+}
+.cta-btn {
+  display: inline-block;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 1rem 2rem; border-radius: 8px;
+  background: var(--yellow); color: var(--black);
+  text-decoration: none; white-space: nowrap;
+  transition: transform 0.18s, box-shadow 0.18s;
+  min-height: 52px; display: flex; align-items: center;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,222,89,0.35);
+}
+
+/* ============================================
+   NOTA METODOLÓGICA — DEEP LAYER
+   ============================================ */
+details {
+  border: 1px solid rgba(0,0,0,0.12); border-radius: 10px;
+  margin-top: 4rem; overflow: hidden;
+}
+details summary {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 1rem 1.5rem; cursor: pointer;
+  list-style: none; display: flex; align-items: center;
+  justify-content: space-between; color: var(--gray);
+  transition: background 0.15s;
+}
+details summary:hover { background: rgba(0,0,0,0.03); }
+details summary::after {
+  content: '+'; font-size: 1.2rem; color: var(--gray-light);
+}
+details[open] summary::after { content: '−'; }
+.metodologia-body {
+  padding: 1.5rem; border-top: 1px solid rgba(0,0,0,0.08);
+  font-size: 0.88rem; color: var(--gray); line-height: 1.7;
+}
+.metodologia-body p + p { margin-top: 0.8rem; }
+.metodologia-body strong { color: var(--black); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--black); color: rgba(255,255,255,0.4);
+  padding: 2.5rem 2rem; text-align: center;
+  font-size: 0.82rem; font-family: var(--font-display);
+}
+footer a { color: var(--yellow); text-decoration: none; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 600px) {
+  .hero { padding: 7rem 1.5rem 3rem; }
+  main { padding: 3rem 1.5rem 5rem; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .cta-block { padding: 2rem 1.5rem; }
+  .cta-text h3 { font-size: 1.3rem; }
+}
+
+/* Respeta prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill, .friccion-bar { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-dot"></span>CEUNPi
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M10 3L5 8l5 5"/>
+    </svg>
+    Volver al inicio
+  </a>
+</nav>
+
+<!-- HERO — SURFACE LAYER -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="tag">Censo 2025 · Transporte</span>
+    <h1 class="hero-title">Cómo nos<br><em>movemos</em></h1>
+    <p class="hero-subtitle">
+      Relevamiento sobre medios de transporte y condiciones de acceso a la Universidad Nacional de Pilar.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="hero-stat-num">185</span>
+        <span class="hero-stat-label">respuestas</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">144</span>
+        <span class="hero-stat-label">usan colectivo</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">70</span>
+        <span class="hero-stat-label">sin boleto reconocido</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- SECCIÓN 1: EL PROBLEMA CENTRAL — SURFACE LAYER -->
+  <section class="section">
+    <div class="section-eyebrow">El problema central</div>
+    <h2 class="section-title">El boleto universitario</h2>
+    <p class="section-lead">
+      El <strong>48,6%</strong> de quienes usan colectivo reporta que no le reconocen el boleto universitario municipal.
+      No es un problema uniforme: tiene dos causas distintas que requieren respuestas distintas.
+    </p>
+
+    <div class="clasif-grid">
+      <!-- Tipo A: falta del colectivero -->
+      <div class="clasif-card tipo-a">
+        <span class="clasif-tipo">Falta grave del colectivero</span>
+        <div class="clasif-num">28</div>
+        <div class="clasif-desc">
+          Personas que usan <strong>exclusivamente líneas 500</strong> y no les reconocen el boleto.
+          Estas líneas tienen la obligación de aplicarlo.
+        </div>
+        <div class="clasif-note">Cada caso es denunciable ante las autoridades de transporte.</div>
+      </div>
+
+      <!-- Tipo B: sin cobertura -->
+      <div class="clasif-card tipo-b">
+        <span class="clasif-tipo">Líneas sin cobertura</span>
+        <div class="clasif-num">16</div>
+        <div class="clasif-desc">
+          Personas que solo usan <strong>líneas fuera del sistema 500</strong>.
+          El boleto universitario no aplica en esas líneas — no es un error del colectivero.
+        </div>
+      </div>
+    </div>
+
+    <!-- Mixto -->
+    <div class="clasif-mixed">
+      <strong>21</strong>
+      <span>usan una combinación de ambas. En su caso, parte del problema es denunciable y parte responde a un déficit de cobertura. Hay 5 casos sin datos de línea suficientes para clasificar.</span>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: QUÉ LÍNEAS — MIDDLE LAYER -->
+  <section class="section">
+    <div class="section-eyebrow">Detalle de líneas</div>
+    <h2 class="section-title">¿Qué líneas toman?</h2>
+    <p class="section-lead">
+      Filtros para ver las dos situaciones por separado.
+    </p>
+
+    <div class="toggle-bar">
+      <button class="toggle-btn active red" onclick="showLineas('500')" id="btn500">
+        Líneas 500 — deben aplicar el boleto
+      </button>
+      <button class="toggle-btn" onclick="showLineas('otras')" id="btnOtras">
+        Líneas sin cobertura
+      </button>
+    </div>
+
+    <!-- Panel líneas 500 -->
+    <div class="lineas-panel visible" id="panel500">
+      <p style="font-size:0.88rem; color: var(--red); font-weight:600; margin-bottom:1.5rem; padding: 0.75rem 1rem; background: rgba(255,49,49,0.08); border-radius:8px; border-left: 3px solid var(--red);">
+        Estas líneas están <strong>obligadas</strong> a reconocer el boleto universitario municipal. Que no lo hagan es una infracción denunciable. Se recomienda registrar el número de interno del colectivo al momento del incidente.
+      </p>
+      <div id="bars500"></div>
+      <p class="lineas-footnote">Número de menciones entre las 70 personas afectadas. Una persona puede tomar más de una línea.</p>
+    </div>
+
+    <!-- Panel líneas otras -->
+    <div class="lineas-panel" id="panelOtras">
+      <p style="font-size:0.88rem; color: var(--gray); font-weight:500; margin-bottom:1.5rem; padding: 0.75rem 1rem; background: rgba(0,0,0,0.05); border-radius:8px; border-left: 3px solid var(--black);">
+        Estas líneas <strong>no integran el sistema de boleto universitario municipal</strong>.
+      </p>
+      <div id="barsOtras"></div>
+      <p class="lineas-footnote">Número de menciones entre las 70 personas afectadas.</p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: FRICCIÓN SISTÉMICA — MIDDLE LAYER -->
+  <section class="section">
+    <div class="section-eyebrow">Contexto más amplio</div>
+    <h2 class="section-title">Otros puntos de fricción</h2>
+    <p class="section-lead">
+      El boleto es el problema más frecuente, pero el sistema de transporte genera más fricciones.
+      Este es el panorama completo entre quienes usan colectivo (sobre 136 respuestas con datos en esta pregunta).
+    </p>
+
+    <div class="friccion-list" id="friccionList"></div>
+  </section>
+
+  <!-- CTA — SURFACE LAYER -->
+  <section class="section">
+    <div class="cta-block">
+      <div class="cta-text">
+        <h3>¿Todavía no respondiste?</h3>
+        <p>Cada respuesta suma evidencia. El censo sigue abierto y cada voz amplía el mapa de lo que necesitamos cambiar.</p>
+      </div>
+      <a href="https://forms.gle/LINK_AL_FORM" class="cta-btn" target="_blank" rel="noopener">
+        Completar el censo →
+      </a>
+    </div>
+  </section>
+
+  <!-- METODOLOGÍA — DEEP LAYER -->
+  <details>
+    <summary>Nota metodológica</summary>
+    <div class="metodologia-body">
+      <p><strong>Fuente:</strong> Formulario de Google distribuido por el Centro de Estudiantes de la UNPilar entre mayo y junio de 2025. Relevamiento no probabilístico por difusión en redes y grupos estudiantiles.</p>
+      <p><strong>Muestra:</strong> 185 respuestas. No se eliminaron duplicados ni se validó identidad de las personas respondentes. Los datos son auto-reportados.</p>
+      <p><strong>Clasificación de líneas:</strong> Se considera "línea del sistema 500" a toda línea cuyo número comience con 5. Esta clasificación corresponde al sistema de boleto universitario municipal vigente en el partido de Pilar. Las líneas que no comienzan con 5 están fuera de cobertura, independientemente del comportamiento de sus conductores.</p>
+      <p><strong>Conteo de líneas:</strong> Se extrajeron los números de línea de las respuestas de texto libre mediante expresiones regulares. Una misma persona puede mencionar más de una línea, por lo que los totales no suman exactamente al número de personas afectadas.</p>
+      <p><strong>Casos mixtos:</strong> 21 personas mencionan líneas de ambas categorías. Sus situaciones contienen un componente denunciable (líneas 500 que no aplican el boleto) y un componente estructural (uso de líneas sin cobertura). No se contabilizan en ninguna de las dos categorías principales.</p>
+    </div>
+  </details>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Centro de Estudiantes · Universidad Nacional de Pilar · <a href="index.html">CEUNPi</a></p>
+  <p style="margin-top:0.5rem;">Datos: Censo Cómo Nos Movemos, mayo 2025.</p>
+</footer>
+
+<script>
+// ============================================
+// DATOS — embebidos directamente
+// ============================================
+const DATA = {
+  lineas500: {
+    "520": 24, "501": 19, "503": 17, "510": 17,
+    "511": 9, "57": 3, "513": 1, "500": 1, "506": 1, "509": 1, "502": 1
+  },
+  lineasOtras: {
+    "276": 25, "350": 8, "203": 7, "429": 2,
+    "365": 2, "194": 2, "291": 2, "313": 1, "47": 1, "60": 1, "176": 1
+  },
+  friccion: {
+    "No reconocen el boleto": 70,
+    "Costo alto": 56,
+    "No respetan horarios": 45,
+    "Trayecto lejano": 41,
+    "Mucho tiempo de viaje": 27,
+    "Sin carteles claros": 21,
+    "No respetan paradas": 15,
+    "Violencia / acoso": 8
+  }
+};
+
+// ============================================
+// RENDER BARRAS DE LÍNEAS
+// ============================================
+function renderLineas(containerId, data, colorClass) {
+  const container = document.getElementById(containerId);
+  const max = Math.max(...Object.values(data));
+
+  container.innerHTML = Object.entries(data).map(([linea, count]) => {
+    const pct = Math.round((count / max) * 100);
+    return `
+      <div class="linea-row">
+        <div class="linea-num">${linea}</div>
+        <div class="bar-track">
+          <div class="bar-fill ${colorClass}" style="width:0%" data-target="${pct}%"></div>
+        </div>
+        <div class="linea-count">${count} <span>personas</span></div>
+      </div>
+    `;
+  }).join('');
+
+  // Animate on next frame
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.bar-fill').forEach(el => {
+      el.style.width = el.dataset.target;
+    });
+  });
+}
+
+// ============================================
+// RENDER FRICCIÓN
+// ============================================
+function renderFriccion() {
+  const container = document.getElementById('friccionList');
+  const total = 136; // respuestas con datos en esta pregunta
+  const max = Math.max(...Object.values(DATA.friccion));
+
+  container.innerHTML = Object.entries(DATA.friccion).map(([label, count]) => {
+    const pct = Math.round((count / total) * 100);
+    const barPct = Math.round((count / max) * 100);
+    const isHighlight = label === "No reconocen el boleto";
+    const barColor = isHighlight ? 'var(--red)' : 'var(--black)';
+
+    return `
+      <div class="friccion-item">
+        <div class="friccion-top">
+          <span class="friccion-label ${isHighlight ? 'highlight' : ''}">${label}</span>
+          <span class="friccion-count">${count}<span class="friccion-pct"> (${pct}%)</span></span>
+        </div>
+        <div class="friccion-bar-wrap">
+          <div class="friccion-bar" style="width:0%; background:${barColor}" data-target="${barPct}%"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Animate
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.friccion-bar').forEach(el => {
+      el.style.width = el.dataset.target;
+    });
+  });
+}
+
+// ============================================
+// TOGGLE PANELS
+// ============================================
+function showLineas(type) {
+  const btn500 = document.getElementById('btn500');
+  const btnOtras = document.getElementById('btnOtras');
+  const panel500 = document.getElementById('panel500');
+  const panelOtras = document.getElementById('panelOtras');
+
+  if (type === '500') {
+    btn500.classList.add('active', 'red');
+    btnOtras.classList.remove('active', 'gray');
+    panel500.classList.add('visible');
+    panelOtras.classList.remove('visible');
+    // Re-animate bars
+    requestAnimationFrame(() => {
+      document.querySelectorAll('#bars500 .bar-fill').forEach(el => {
+        el.style.width = '0%';
+        requestAnimationFrame(() => { el.style.width = el.dataset.target; });
+      });
+    });
+  } else {
+    btnOtras.classList.add('active', 'gray');
+    btn500.classList.remove('active', 'red');
+    panelOtras.classList.add('visible');
+    panel500.classList.remove('visible');
+    requestAnimationFrame(() => {
+      document.querySelectorAll('#barsOtras .bar-fill').forEach(el => {
+        el.style.width = '0%';
+        requestAnimationFrame(() => { el.style.width = el.dataset.target; });
+      });
+    });
+  }
+}
+
+// ============================================
+// INTERSECTION OBSERVER — animar al entrar en viewport
+// ============================================
+function animateOnVisible(selector, animFn) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animFn();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.15 });
+  const el = document.querySelector(selector);
+  if (el) observer.observe(el);
+}
+
+// ============================================
+// INIT
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderLineas('bars500', DATA.lineas500, 'red');
+  renderLineas('barsOtras', DATA.lineasOtras, 'dark');
+  renderFriccion();
+
+  // Start bars at 0, animate when section enters viewport
+  animateOnVisible('#panel500', () => {
+    document.querySelectorAll('#bars500 .bar-fill').forEach(el => {
+      el.style.width = el.dataset.target;
+    });
+  });
+
+  animateOnVisible('#friccionList', () => {
+    document.querySelectorAll('.friccion-bar').forEach(el => {
+      el.style.width = el.dataset.target;
+    });
+  });
+});
+</script>
+
+</body>
+</html>

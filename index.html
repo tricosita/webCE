@@ -1244,6 +1244,570 @@ footer strong {
 .mb-2 { margin-bottom: 2rem; }
 
 /* ============================================
+   TRANSPORTE / CENSO SECCIÓN
+   ============================================ */
+.transport-section {
+  background: var(--black);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.transport-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue));
+}
+
+.transport-section .section-title::after {
+  background: var(--red);
+}
+
+.transport-section .tag {
+  background: rgba(255,49,49,0.12);
+  color: var(--yellow);
+  border: 1px solid rgba(255,49,49,0.25);
+}
+
+/* KPI row */
+.trans-kpi {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 2rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.trans-kpi-card {
+  background: rgba(255,255,255,0.04);
+  padding: 1.5rem 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: background 0.2s;
+}
+
+.trans-kpi-card:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.trans-kpi-card.accent {
+  background: rgba(255,49,49,0.1);
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
+
+.trans-kpi-card.accent:hover {
+  background: rgba(255,49,49,0.15);
+}
+
+.trans-kpi-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  line-height: 1;
+  color: var(--yellow);
+}
+
+.trans-kpi-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.3;
+}
+
+.trans-kpi-label strong {
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+/* Accordion */
+.trans-accordion {
+  margin-top: 2.5rem;
+}
+
+.trans-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-height: 52px;
+}
+
+.trans-toggle:hover {
+  background: var(--red);
+  border-color: var(--red);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,49,49,0.3);
+}
+
+.trans-toggle.open {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.trans-toggle-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.trans-toggle.open .trans-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.trans-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.trans-panel.open {
+  max-height: 6000px;
+}
+
+.trans-panel-inner {
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Secciones internas */
+.trans-block-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.trans-block-desc {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.92rem;
+  margin-bottom: 1.5rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* Clasificación binaria */
+.trans-clasif {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.trans-clasif-card {
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.trans-clasif-card.tipo-a {
+  background: rgba(255,49,49,0.15);
+  border: 1px solid rgba(255,49,49,0.25);
+}
+
+.trans-clasif-card.tipo-b {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.trans-clasif-tipo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.trans-clasif-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  color: var(--yellow);
+}
+
+.trans-clasif-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.trans-clasif-note {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  font-style: italic;
+  margin-top: 0.6rem;
+}
+
+.trans-mixto {
+  background: rgba(255,222,89,0.08);
+  border: 1px solid rgba(255,222,89,0.15);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.trans-mixto strong {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--yellow);
+  min-width: 2.5rem;
+}
+
+/* Líneas toggle */
+.trans-toggle-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.trans-toggle-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  cursor: pointer;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  transition: all 0.18s;
+  min-height: 38px;
+}
+
+.trans-toggle-btn.active-red {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.trans-toggle-btn.active-dark {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+  color: var(--white);
+}
+
+.trans-toggle-btn:hover:not(.active-red):not(.active-dark) {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.trans-panel-lineas { display: none; }
+.trans-panel-lineas.visible { display: block; }
+
+.trans-linea-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.trans-linea-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 44px;
+  text-align: right;
+}
+
+.trans-bar-track {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.trans-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.trans-bar-fill.red { background: var(--red); }
+.trans-bar-fill.dark { background: rgba(255,255,255,0.3); }
+
+.trans-linea-count {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  min-width: 3rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.trans-linea-count span {
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
+.trans-lineas-hint {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-style: italic;
+}
+
+/* Recordatorio cobertura */
+.trans-recordatorio {
+  background: rgba(255,222,89,0.06);
+  border: 1px solid rgba(255,222,89,0.12);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.trans-recordatorio-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.trans-recordatorio h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--yellow);
+  margin-bottom: 0.3rem;
+}
+
+.trans-recordatorio p {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+}
+
+.trans-recordatorio p strong {
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+/* Fricción */
+.trans-friccion-item {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.trans-friccion-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.trans-friccion-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.trans-friccion-label {
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.trans-friccion-label.highlight {
+  font-weight: 700;
+  color: #FF6B6B;
+}
+
+.trans-friccion-count {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--yellow);
+}
+
+.trans-friccion-pct {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+}
+
+.trans-friccion-bar-wrap {
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.trans-friccion-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Turno cards */
+.trans-turnos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.trans-turno-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.trans-turno-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.trans-turno-icon { font-size: 1.2rem; }
+
+.trans-turno-nombre {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--yellow);
+}
+
+.trans-turno-count {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  margin-left: auto;
+}
+
+.trans-turno-probs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.trans-turno-prob {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+}
+
+.trans-turno-prob span:last-child {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #FF8A80;
+  font-size: 0.82rem;
+}
+
+/* Insight */
+.trans-insight {
+  background: rgba(255,222,89,0.06);
+  border-left: 3px solid var(--yellow);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.trans-insight strong {
+  color: var(--yellow);
+}
+
+/* Metodología */
+.trans-meto details {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.trans-meto summary {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255,255,255,0.5);
+  transition: background 0.15s;
+}
+
+.trans-meto summary:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.trans-meto summary::after {
+  content: '+';
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.3);
+}
+
+.trans-meto details[open] summary::after {
+  content: '−';
+}
+
+.trans-meto-body {
+  padding: 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+
+.trans-meto-body p + p {
+  margin-top: 0.7rem;
+}
+
+.trans-meto-body strong {
+  color: rgba(255,255,255,0.75);
+}
+
+@media (max-width: 768px) {
+  .trans-kpi { grid-template-columns: repeat(2, 1fr); }
+  .trans-clasif { grid-template-columns: 1fr; }
+  .trans-turnos { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 500px) {
+  .trans-kpi { grid-template-columns: 1fr 1fr; }
+  .trans-kpi-card { padding: 1rem 0.8rem; }
+}
+
+/* ============================================
    ASAMBLEA MODAL
    ============================================ */
 .asamblea-overlay {
@@ -2207,6 +2771,7 @@ footer strong {
     <li><a href="#representantes">Representantes</a></li>
     <li><a href="#cobertura">Cobertura</a></li>
     <li><a href="#boleto">Boleto</a></li>
+    <li><a href="#transporte">Transporte</a></li>
     <li><a href="#comunidad">Comunidad</a></li>
   </ul>
 </nav>
@@ -2599,6 +3164,176 @@ footer strong {
           </p>
         </div>
 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CÓMO NOS MOVEMOS / CENSO DE TRANSPORTE
+     ============================================ -->
+<section class="transport-section" id="transporte">
+  <div class="section-inner">
+    <span class="tag">📊 Censo 2026 · Transporte</span>
+    <h2 class="section-title display-medium">Cómo Nos Movemos</h2>
+    <p style="color:rgba(255,255,255,0.6);margin-top:0.5rem;font-size:1.05rem;">
+      Relevamiento sobre medios de transporte y condiciones de acceso a la Universidad Nacional de Pilar.
+    </p>
+
+    <!-- KPI ROW -->
+    <div class="trans-kpi">
+      <div class="trans-kpi-card">
+        <span class="trans-kpi-num">185</span>
+        <span class="trans-kpi-label">Respuestas totales</span>
+      </div>
+      <div class="trans-kpi-card">
+        <span class="trans-kpi-num" style="color:var(--white);">144</span>
+        <span class="trans-kpi-label">Usan <strong>colectivo</strong></span>
+      </div>
+      <div class="trans-kpi-card accent">
+        <span class="trans-kpi-num" style="color:var(--yellow);">70</span>
+        <span class="trans-kpi-label">Sin boleto <strong>reconocido</strong></span>
+      </div>
+      <div class="trans-kpi-card">
+        <span class="trans-kpi-num" style="color:var(--yellow);">48,6%</span>
+        <span class="trans-kpi-label">de usuarios de colectivo <strong>afectados</strong></span>
+      </div>
+    </div>
+
+    <!-- ACCORDION -->
+    <div class="trans-accordion">
+      <button class="trans-toggle" onclick="toggleTransporte()" id="transToggle">
+        <span>📋 Ver informe completo</span>
+        <span class="trans-toggle-icon">▾</span>
+      </button>
+
+      <div class="trans-panel" id="transPanel">
+        <div class="trans-panel-inner">
+
+          <!-- 1. PROBLEMA CENTRAL -->
+          <div>
+            <h3 class="trans-block-title">⚡ El problema central</h3>
+            <p class="trans-block-desc">
+              El <strong style="color:var(--yellow);">48,6%</strong> de quienes usan colectivo reporta que no le reconocen el boleto universitario municipal.
+              No es un problema uniforme: tiene <strong style="color:var(--yellow);">dos causas distintas</strong> que requieren respuestas distintas.
+            </p>
+
+            <div class="trans-clasif">
+              <div class="trans-clasif-card tipo-a">
+                <span class="trans-clasif-tipo">Falta grave del colectivero</span>
+                <div class="trans-clasif-num">28</div>
+                <div class="trans-clasif-desc">
+                  Personas que usan <strong style="color:var(--yellow);">exclusivamente líneas 500</strong> y no les reconocen el boleto.
+                  Estas líneas <strong style="color:var(--yellow);">tienen la obligación</strong> de aplicarlo. Cada caso es denunciable.
+                </div>
+                <div class="trans-clasif-note">Se recomienda registrar el número de interno del colectivo al momento del incidente.</div>
+              </div>
+
+              <div class="trans-clasif-card tipo-b">
+                <span class="trans-clasif-tipo">Líneas sin cobertura</span>
+                <div class="trans-clasif-num" style="color:rgba(255,255,255,0.7);">16</div>
+                <div class="trans-clasif-desc">
+                  Personas que solo usan <strong style="color:var(--yellow);">líneas fuera del sistema 500</strong>.
+                  El boleto universitario <strong>no aplica</strong> en esas líneas — no es un error del colectivero.
+                </div>
+              </div>
+            </div>
+
+            <div class="trans-mixto">
+              <strong>21</strong>
+              <span>usan una combinación de ambas. En su caso, parte del problema es denunciable y parte responde a un déficit de cobertura. Hay 5 casos sin datos de línea suficientes para clasificar.</span>
+            </div>
+          </div>
+
+          <!-- 2. DETALLE DE LÍNEAS -->
+          <div>
+            <h3 class="trans-block-title">🚌 ¿Qué líneas toman?</h3>
+            <p class="trans-block-desc">
+              Estos son los números de línea que mencionan las personas afectadas. Filtrá para ver las dos situaciones por separado.
+            </p>
+
+            <div class="trans-toggle-bar">
+              <button class="trans-toggle-btn active-red" onclick="transShowLineas('500')" id="transBtn500">
+                Líneas 500 — deben aplicar el boleto
+              </button>
+              <button class="trans-toggle-btn" onclick="transShowLineas('otras')" id="transBtnOtras">
+                Líneas sin cobertura
+              </button>
+            </div>
+
+            <div class="trans-panel-lineas visible" id="transPanel500">
+              <p style="font-size:0.82rem; color: #FF6B6B; font-weight:600; margin-bottom:1rem; padding: 0.6rem 1rem; background: rgba(255,49,49,0.08); border-radius:8px; border-left: 3px solid var(--red);">
+                Estas líneas están <strong style="color:var(--yellow);">obligadas</strong> a reconocer el boleto universitario municipal. Que no lo hagan es una infracción denunciable.
+              </p>
+              <div id="transBars500"></div>
+              <p class="trans-lineas-hint">Número de menciones entre las 70 personas afectadas. Una persona puede tomar más de una línea.</p>
+            </div>
+
+            <div class="trans-panel-lineas" id="transPanelOtras">
+              <p style="font-size:0.82rem; color: rgba(255,255,255,0.5); font-weight:500; margin-bottom:1rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-radius:8px; border-left: 3px solid rgba(255,255,255,0.2);">
+                Estas líneas <strong style="color:var(--yellow);">no integran el sistema de boleto universitario municipal</strong>. No tienen obligación de aplicarlo.
+              </p>
+              <div id="transBarsOtras"></div>
+              <p class="trans-lineas-hint">Número de menciones entre las 70 personas afectadas.</p>
+            </div>
+
+            <!-- Recordatorio cobertura -->
+            <div class="trans-recordatorio">
+              <div class="trans-recordatorio-icon">💡</div>
+              <div>
+                <h4>Recordatorio: cobertura de líneas 500</h4>
+                <p>
+                  Las líneas del sistema 500 (501, 503, 506, 509, 510, 511, 520) tienen cobertura de boleto estudiantil municipal
+                  <strong>de lunes a viernes todo el día</strong> y <strong>sábados hasta el mediodía</strong>.
+                  Son <strong>45 viajes por mes</strong> que se renuevan automáticamente.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. FRICCIÓN SISTÉMICA -->
+          <div>
+            <h3 class="trans-block-title">🔥 Otros puntos de fricción</h3>
+            <p class="trans-block-desc">
+              El boleto es el problema más frecuente, pero el sistema de transporte genera más fricciones.
+              Este es el panorama completo entre quienes usan colectivo (sobre 136 respuestas con datos).
+            </p>
+
+            <div id="transFriccion"></div>
+          </div>
+
+          <!-- 4. PROBLEMAS SEGÚN EL TURNO -->
+          <div>
+            <h3 class="trans-block-title">🕐 El problema según el turno</h3>
+            <p class="trans-block-desc">
+              Los problemas cambian según la hora del día. Mirá cómo se distribuyen las principales quejas en cada turno.
+            </p>
+
+            <div class="trans-turnos" id="transTurnos"></div>
+
+            <div class="trans-insight">
+              <strong>🔍 Dato clave:</strong> En el turno <strong>mañana</strong> el problema del boleto no reconocido afecta al <strong>43%</strong> de los estudiantes.
+              En <strong>noche</strong>, el principal problema pasa a ser la <strong>falta de respeto de horarios</strong> (33%),
+              mientras que el boleto baja al 21%. En <strong>tarde</strong>, la falta de carteles claros aparece como
+              la tercera queja más mencionada (17%).
+            </div>
+          </div>
+
+          <!-- 5. NOTA METODOLÓGICA -->
+          <div class="trans-meto">
+            <details>
+              <summary>Nota metodológica</summary>
+              <div class="trans-meto-body">
+                <p><strong>Fuente:</strong> Formulario de Google distribuido por el Centro de Estudiantes de la UNPilar entre mayo y junio de 2026. Relevamiento no probabilístico por difusión en redes y grupos estudiantiles.</p>
+                <p><strong>Muestra:</strong> 185 respuestas. No se eliminaron duplicados ni se validó identidad de las personas respondentes. Los datos son auto-reportados.</p>
+                <p><strong>Clasificación de líneas:</strong> Se considera "línea del sistema 500" a toda línea cuyo número comience con 5. Esta clasificación corresponde al sistema de boleto universitario municipal vigente en el partido de Pilar. Las líneas que no comienzan con 5 están fuera de cobertura, independientemente del comportamiento de sus conductores.</p>
+                <p><strong>Conteo de líneas:</strong> Se extrajeron los números de línea de las respuestas de texto libre mediante expresiones regulares. Una misma persona puede mencionar más de una línea, por lo que los totales no suman exactamente al número de personas afectadas.</p>
+                <p><strong>Casos mixtos:</strong> 21 personas mencionan líneas de ambas categorías. Sus situaciones contienen un componente denunciable (líneas 500 que no aplican el boleto) y un componente estructural (uso de líneas sin cobertura). No se contabilizan en ninguna de las dos categorías principales.</p>
+              </div>
+            </details>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -3212,6 +3947,125 @@ function initStatuteAccordion() {
       }
     });
   });
+}
+
+// =============================================
+// TRANSPORTE / CENSO
+// =============================================
+var TRANS_DATA = {
+  lineas500: { "520": 24, "501": 19, "503": 17, "510": 17, "511": 9, "500": 1, "506": 1, "509": 1, "502": 1, "513": 1 },
+  lineasOtras: { "276": 25, "350": 8, "203": 7, "429": 2, "365": 2, "194": 2, "291": 2, "313": 1, "47": 1, "60": 1, "176": 1, "57": 3 },
+  friccion: {
+    "No reconocen el boleto": 70,
+    "Costo alto": 56,
+    "No respetan horarios": 45,
+    "Trayecto lejano": 41,
+    "Mucho tiempo de viaje": 27,
+    "Sin carteles claros": 21,
+    "No respetan paradas/recorridos": 15,
+    "Violencia / acoso": 8
+  },
+  turnos: {
+    manana: { label: "Mañana", icon: "🌤️", count: 58, problemas: [["No reconocen boleto",25],["Costo alto",24],["Trayecto lejano",16],["No respetan horarios",13],["Mucho tiempo",10]] },
+    tarde: { label: "Tarde", icon: "☀️", count: 66, problemas: [["No reconocen boleto",27],["Costo alto",21],["Trayecto lejano",14],["No respetan horarios",13],["Sin carteles claros",11]] },
+    noche: { label: "Noche", icon: "🌙", count: 39, problemas: [["No respetan horarios",13],["Trayecto lejano",8],["No reconocen boleto",8],["Costo alto",7],["Mucho tiempo",7]] }
+  }
+};
+
+var transOpen = false;
+function toggleTransporte() {
+  transOpen = !transOpen;
+  var panel = document.getElementById('transPanel');
+  var toggle = document.getElementById('transToggle');
+  if (transOpen) {
+    panel.classList.add('open');
+    toggle.classList.add('open');
+    requestAnimationFrame(function() { transRenderLineas('500'); transRenderFriccion(); transRenderTurnos(); });
+  } else {
+    panel.classList.remove('open');
+    toggle.classList.remove('open');
+  }
+}
+
+function transRenderLineas(type) {
+  var data = type === '500' ? TRANS_DATA.lineas500 : TRANS_DATA.lineasOtras;
+  var el = document.getElementById(type === '500' ? 'transBars500' : 'transBarsOtras');
+  if (!el) return;
+  var vals = Object.values(data);
+  var max = 1;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] > max) max = vals[i]; }
+  var cls = type === '500' ? 'red' : 'dark';
+  var keys = Object.keys(data).sort(function(a,b) { return data[b]-data[a]; });
+  var html = '';
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    var c = data[k];
+    var pct = Math.round(c/max*100);
+    html += '<div class="trans-linea-row"><div class="trans-linea-num">'+k+'</div><div class="trans-bar-track"><div class="trans-bar-fill '+cls+'" style="width:0%" data-target="'+pct+'%"></div></div><div class="trans-linea-count">'+c+' <span>pers.</span></div></div>';
+  }
+  el.innerHTML = html;
+  requestAnimationFrame(function() {
+    var fills = el.querySelectorAll('.trans-bar-fill');
+    for (var i = 0; i < fills.length; i++) { fills[i].style.width = fills[i].dataset.target; }
+  });
+}
+
+function transShowLineas(type) {
+  var b1 = document.getElementById('transBtn500');
+  var b2 = document.getElementById('transBtnOtras');
+  var p1 = document.getElementById('transPanel500');
+  var p2 = document.getElementById('transPanelOtras');
+  if (type === '500') {
+    b1.className = 'trans-toggle-btn active-red'; b2.className = 'trans-toggle-btn';
+    p1.classList.add('visible'); p2.classList.remove('visible');
+    transRenderLineas('500');
+  } else {
+    b2.className = 'trans-toggle-btn active-dark'; b1.className = 'trans-toggle-btn';
+    p2.classList.add('visible'); p1.classList.remove('visible');
+    transRenderLineas('otras');
+  }
+}
+
+function transRenderFriccion() {
+  var el = document.getElementById('transFriccion');
+  if (!el) return;
+  var total = 136;
+  var vals = Object.values(TRANS_DATA.friccion);
+  var max = 1;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] > max) max = vals[i]; }
+  var keys = Object.keys(TRANS_DATA.friccion);
+  var html = '';
+  for (var i = 0; i < keys.length; i++) {
+    var label = keys[i];
+    var c = TRANS_DATA.friccion[label];
+    var pct = Math.round(c/total*100);
+    var barPct = Math.round(c/max*100);
+    var hl = label === 'No reconocen el boleto';
+    var col = hl ? 'var(--red)' : 'var(--yellow)';
+    html += '<div class="trans-friccion-item"><div class="trans-friccion-top"><span class="trans-friccion-label'+(hl?' highlight':'')+'">'+label+'</span><span class="trans-friccion-count">'+c+'<span class="trans-friccion-pct"> ('+pct+'%)</span></span></div><div class="trans-friccion-bar-wrap"><div class="trans-friccion-bar" style="width:0%;background:'+col+'" data-target="'+barPct+'%"></div></div></div>';
+  }
+  el.innerHTML = html;
+  requestAnimationFrame(function() {
+    var bars = el.querySelectorAll('.trans-friccion-bar');
+    for (var i = 0; i < bars.length; i++) { bars[i].style.width = bars[i].dataset.target; }
+  });
+}
+
+function transRenderTurnos() {
+  var el = document.getElementById('transTurnos');
+  if (!el) return;
+  var turnoNames = Object.keys(TRANS_DATA.turnos);
+  var html = '';
+  for (var t = 0; t < turnoNames.length; t++) {
+    var turno = TRANS_DATA.turnos[turnoNames[t]];
+    var probsHtml = '';
+    for (var p = 0; p < turno.problemas.length; p++) {
+      var prob = turno.problemas[p];
+      probsHtml += '<div class="trans-turno-prob"><span>'+prob[0]+'</span><span>'+prob[1]+' ('+Math.round(prob[1]/turno.count*100)+'%)</span></div>';
+    }
+    html += '<div class="trans-turno-card"><div class="trans-turno-header"><span class="trans-turno-icon">'+turno.icon+'</span><span class="trans-turno-nombre">'+turno.label+'</span><span class="trans-turno-count">'+turno.count+' pers.</span></div><div class="trans-turno-probs">'+probsHtml+'</div></div>';
+  }
+  el.innerHTML = html;
 }
 </script>
 </body>
