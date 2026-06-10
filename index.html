@@ -1215,6 +1215,36 @@ footer strong {
   color: rgba(255,255,255,0.8);
 }
 
+/* Footer visitor counter */
+.footer-counter {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.footer-counter .counter-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--yellow);
+  font-size: 0.85rem;
+}
+
+.footer-counter.loading .counter-num::before {
+  content: '···';
+  animation: counterLoad 1s ease-in-out infinite;
+}
+
+@keyframes counterLoad {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -3411,6 +3441,10 @@ footer strong {
     <span style="opacity:0.3">|</span>
     <a href="https://chat.whatsapp.com" target="_blank" rel="noopener" style="color:#25D366;text-decoration:none;font-weight:600;">💬 Comunidad WhatsApp</a>
   </p>
+  <div class="footer-counter" id="visitCounter">
+    <span>👁️ Visitas a esta página:</span>
+    <span class="counter-num" id="counterNum">···</span>
+  </div>
 </footer>
 
 <!-- ============================================
@@ -4051,6 +4085,18 @@ function transRenderFriccion() {
   });
 }
 
+
+// =============================================
+// VISITOR COUNTER — counterapi.dev
+// =============================================
+(function() {
+  var el = document.getElementById('counterNum');
+  if (!el) return;
+  fetch('https://api.counterapi.dev/v1/centro-estudiantes-unpilar/webce-visits/up')
+    .then(function(r) { return r.json(); })
+    .then(function(d) { if (d && d.count !== undefined) el.textContent = d.count.toLocaleString(); else el.textContent = '??'; })
+    .catch(function() { el.textContent = '—'; });
+})();
 function transRenderTurnos() {
   var el = document.getElementById('transTurnos');
   if (!el) return;
